@@ -16,13 +16,17 @@ export default class TaskFilter extends Component {
             return (
                 <button
                 key={name}
-                className="btn-info">{label}</button>
+                className="btn btn-outline-secondary">{label}</button>
             )
         });
-        return (
-            <div>
-                {buttons}
-            </div>
-        )
+        if (this.props.isLoggedIn) {
+            return (
+                <div className="align-items-center d-flex">
+                    {buttons}
+                </div>
+            )
+        } else {
+            return <div></div>
+        }
     }
 }

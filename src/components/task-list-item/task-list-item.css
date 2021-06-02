@@ -44,7 +44,7 @@
     transition: 0.5s all;
 }
 
-.task-list-item .like .fa-heart {
+.task-list-item.like .fa-heart {
     opacity: 1;
     transform: translateX(0px);
 }
