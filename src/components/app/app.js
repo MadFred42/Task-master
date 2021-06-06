@@ -72,6 +72,10 @@ export default class App extends Component {
         };
 
         this.setState(({data}) => {
+            if (newItem.label === '') {
+                return    
+            }
+
             const newArr = [...data.filter(item => !item.complete), newItem, ...data.filter(item => item.complete)];;
             return {
                 data: newArr
@@ -107,15 +111,12 @@ export default class App extends Component {
 
     onToggleImportant(index) {
         this.setState(({data}) => {
-            if (data[index].complete) {
-                return
-            } 
             const newArr = [...data];
             const oldItem = newArr.splice(index, 1)[0];
             if (oldItem.important) {
                 oldItem.important = false;
-                const t = newArr.filter(item => item.important).length;
-                newArr.splice(t, 0, oldItem);
+                const allImportant = newArr.filter(item => item.important).length;
+                newArr.splice(allImportant, 0, oldItem);
             } else {
                 oldItem.important = true;
                 newArr.unshift(oldItem);
@@ -185,6 +186,7 @@ export default class App extends Component {
                 <TaskList
                 isLoggedIn={isLoggedIn}
                 posts={visiblePosts}
+                complete={data.complete}
                 onComplete={this.onComplete}
                 onDelete={this.onDelete}
                 onToggleImportant={this.onToggleImportant}/>
