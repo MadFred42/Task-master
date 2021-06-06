@@ -24,9 +24,9 @@ export default class App extends Component {
             filter: 'all'
         }
         this.onLogIn = this.onLogIn.bind(this);
-        this.onLogOut = this.onLogOut.bind(this);
-        this.closeModal = this.closeModal.bind(this);
         this.onSignIn = this.onSignIn.bind(this);
+        this.closeModal = this.closeModal.bind(this);
+        this.onLogOut = this.onLogOut.bind(this);
         this.onAdd = this.onAdd.bind(this);
         this.onComplete = this.onComplete.bind(this);
         this.onDelete = this.onDelete.bind(this);
@@ -39,17 +39,15 @@ export default class App extends Component {
 
     onLogIn() {
         this.setState({
-            data: [],
-            modal: true,
-            isLoggedIn: false
+            modal: true
         });
     }
 
-    onLogOut() {
+    onSignIn(textName, textLastName) {
         this.setState({
-            data: [],
-            isLoggedIn: false,
-            user: ''
+            modal: false,
+            isLoggedIn: true,
+            user: `${textName} ${textLastName}`
         });
     }
 
@@ -57,12 +55,11 @@ export default class App extends Component {
         this.setState({modal: false});
     }
 
-    onSignIn(textName, textLastName) {
+    onLogOut() {
         this.setState({
             data: [],
-            modal: false,
-            isLoggedIn: true,
-            user: `${textName} ${textLastName}`
+            isLoggedIn: false,
+            user: ''
         });
     }
 
