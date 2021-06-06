@@ -44,7 +44,7 @@ export default class TaskAddForm extends Component {
                 </form>
             )
         } else {
-            return <div></div>
+            return null;
         }
     }
 }

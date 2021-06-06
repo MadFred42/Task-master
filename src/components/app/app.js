@@ -30,7 +30,7 @@ export default class App extends Component {
         this.onAdd = this.onAdd.bind(this);
         this.onComplete = this.onComplete.bind(this);
         this.onDelete = this.onDelete.bind(this);
-        this.onImportant = this.onImportant.bind(this);
+        this.onToggleImportant = this.onToggleImportant.bind(this);
         this.onUpdateSearch = this.onUpdateSearch.bind(this);
         this.onUpdateFilter = this.onUpdateFilter.bind(this);
 
@@ -108,30 +108,27 @@ export default class App extends Component {
         });
     }
 
-    onImportant(id) {
+    onToggleImportant(index) {
         this.setState(({data}) => {
-            const index = data.findIndex(item => item.id === id);
-
-            const oldItem = data[index];
-            const newItem = {...oldItem, important: true};
-            const newArr = [...data.slice(0, index), newItem, ...data.slice(index + 1)];
-            newArr.unshift(...newArr.splice(newArr.findIndex(item => item.id === id), 1));
-
-            if (!newItem.complete) {
-                return {
-                    data: newArr
-                };
+            if (data[index].complete) {
+                return
+            } 
+            const newArr = [...data];
+            const oldItem = newArr.splice(index, 1)[0];
+            if (oldItem.important) {
+                oldItem.important = false;
+                const t = newArr.filter(item => item.important).length;
+                newArr.splice(t, 0, oldItem);
+            } else {
+                oldItem.important = true;
+                newArr.unshift(oldItem);
+            }            
+            
+            return {
+                data: newArr
             }
         });
     }
-
-    // onUnImportant(id) {
-    //     this.setState(({data}) => {
-    //         const index = data.findIndex(item => item.id ===id);
-    //         const oldItem = data[index];
-    //         const newItem = {...oldItem, important: false};
-    //     })
-    // }
 
     onUpdateSearch(term) {
         this.setState({term});
@@ -193,8 +190,7 @@ export default class App extends Component {
                 posts={visiblePosts}
                 onComplete={this.onComplete}
                 onDelete={this.onDelete}
-                onImportant={this.onImportant}
-                onUnImportant={this.onUnImportant} />
+                onToggleImportant={this.onToggleImportant}/>
                 <TaskAddForm
                 isLoggedIn={isLoggedIn}
                 addTask={this.onAdd} />

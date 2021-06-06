@@ -28,7 +28,7 @@ export default class SearchPanel extends Component {
                 onChange={this.onUpdateSearch} />
             )
         } else {
-            return <div></div>
+            return null
         }
     }
 }

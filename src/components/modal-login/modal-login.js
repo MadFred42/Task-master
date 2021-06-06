@@ -12,6 +12,8 @@ export default class ModalLogin extends Component {
         this.onUpdateName = this.onUpdateName.bind(this);
         this.onUpdateLastName = this.onUpdateLastName.bind(this);
         this.onAddName = this.onAddName.bind(this);
+        this.closeModalEsc = this.closeModalEsc.bind(this);
+        this.closeModal = this.closeModal.bind(this);
     }
 
     onUpdateName(e) {
@@ -26,30 +28,52 @@ export default class ModalLogin extends Component {
 
     onAddName(e) {
         e.preventDefault();
-        this.props.onSignIn(this.state.textName, this.state.textLastName);
-        this.setState({
-            textName: '',
-            textLastName: ''
-        })
-        this.props.closeModal();
-    }
+        const {textName, textLastName} = this.state;
 
-    closeModal(e) {
-        if (e.target === "modal") {
-           return this.props.closeModal();
+        if (textName !== '' && textLastName !== '') {
+            this.props.onSignIn(textName, textLastName);
+            this.setState({
+                textName: '',
+                textLastName: ''
+            })
+            this.props.closeModal();
+        } else {
+            alert('Tell me what is your name');
         }
     }
-    
+
+    closeModalEsc(e) {
+        if (e.keyCode === 27) {
+            this.props.closeModal();
+        }
+    }
+
+    closeModal = e => {
+        if (e.target.className === 'modal') {
+            this.props.closeModal();
+        }
+    }
+
+    componentDidMount() {
+        document.addEventListener('keydown', this.closeModalEsc, false);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('keydown', this.closeModalEsc, false);
+    }
+
     render() {
         const {modal, closeModal} = this.props;
         
         if (modal) {
             return (
-                <div className="modal"
-                onClick={this.closeModal}>
+                <div 
+                className="modal"
+                onClick={this.closeModal}
+                onKeyDown={this.closeModalEsc}>
                     <div className="modal-dialog">
                         <div className="modal-content">
-                            <form 
+                            <form
                             action="#"
                             onSubmit={this.onAddName}>
                                 <button 
@@ -69,16 +93,17 @@ export default class ModalLogin extends Component {
                                 className="form-control modal-input"
                                 onChange={this.onUpdateLastName}
                                 value={this.state.textLastName} />
-                                <button className="btn btn-dark">Log In</button>
+                                <button 
+                                className="btn btn-dark"
+                                type="submit">
+                                    Log In</button>
                             </form>
                         </div>
                     </div>
                 </div>
             );
         } else {
-            return (
-                <div />
-            );
+            return null;
         }
     }
 }

@@ -5,8 +5,8 @@ import TaskListItem from '../task-list-item';
 
 import './task-list.css';
 
-const TaskList = ({posts, onComplete, onDelete, onImportant}) => {
-    const elements = posts.map((item) => {
+const TaskList = ({posts, onComplete, onDelete, onToggleImportant}) => {
+    const elements = posts.map((item, index) => {
         const {id, ...itemProps} = item;
         return (
             <li
@@ -15,7 +15,7 @@ const TaskList = ({posts, onComplete, onDelete, onImportant}) => {
                 <TaskListItem {...itemProps}
                 onComplete={() => onComplete(id)}
                 onDelete={() => onDelete(id)}
-                onImportant={() => onImportant(id)} />
+                onToggleImportant={() => onToggleImportant(index)} />
             </li>
         )
     });
@@ -27,7 +27,7 @@ const TaskList = ({posts, onComplete, onDelete, onImportant}) => {
             </ul>
         )
     }  else {
-        return <div></div>
+        return null
     }
 }
 

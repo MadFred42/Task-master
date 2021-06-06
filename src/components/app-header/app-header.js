@@ -12,7 +12,7 @@ const AppHeader = ({isLoggedIn, user, allTasks, completed}) => {
             </div>
         )
     } else {
-        return <div></div>
+        return null;
     }
 }
 

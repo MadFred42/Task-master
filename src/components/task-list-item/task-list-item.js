@@ -2,7 +2,7 @@ import React from 'react';
 
 import './task-list-item.css'
 
-const TaskListItem = ({label, important, complete, onComplete, onDelete, onImportant}) => {
+const TaskListItem = ({label, important, complete, onComplete, onDelete, onToggleImportant}) => {
     let classNames = 'task-list-item d-flex justify-content-between';
 
     if (important) {
@@ -22,7 +22,7 @@ const TaskListItem = ({label, important, complete, onComplete, onDelete, onImpor
             <div className="d-flex justify-content-center align-items-center">
                 <button 
                 className="btn-star btn-sm"
-                onClick={onImportant}>
+                onClick={onToggleImportant}>
                     <i className="fas fa-star" />
                 </button>
                 <button 
