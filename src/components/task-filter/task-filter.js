@@ -7,16 +7,21 @@ export default class TaskFilter extends Component {
         super(props);
         this.buttons = [
             {name: 'all', label: 'All'},
-            {name: 'like', label: 'Liked'}
+            {name: 'complete', label: 'Completed'}
         ]
     }
 
     render() {
         const buttons = this.buttons.map(({name, label}) => {
+            const {filter, onUpdateFilter} = this.props;
+            const active = filter === name;
+            const clazz = active ? 'btn-info' : 'btn-outline-secondary';          
             return (
                 <button
                 key={name}
-                className="btn btn-outline-secondary">{label}</button>
+                className={`btn ${clazz}`}
+                onClick={() => onUpdateFilter(name)}>
+                    {label}</button>
             )
         });
         if (this.props.isLoggedIn) {

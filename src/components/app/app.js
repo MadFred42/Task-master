@@ -19,7 +19,9 @@ export default class App extends Component {
             ],
             modal: false,
             isLoggedIn: false,
-            user: ''
+            user: '',
+            term: '',
+            filter: 'all'
         }
         this.onLogIn = this.onLogIn.bind(this);
         this.onLogOut = this.onLogOut.bind(this);
@@ -29,6 +31,8 @@ export default class App extends Component {
         this.onComplete = this.onComplete.bind(this);
         this.onDelete = this.onDelete.bind(this);
         this.onImportant = this.onImportant.bind(this);
+        this.onUpdateSearch = this.onUpdateSearch.bind(this);
+        this.onUpdateFilter = this.onUpdateFilter.bind(this);
 
         this.id = 1;
     }
@@ -128,11 +132,38 @@ export default class App extends Component {
     //         const newItem = {...oldItem, important: false};
     //     })
     // }
+
+    onUpdateSearch(term) {
+        this.setState({term});
+    }
+
+    searchTask(items, term) {
+        if (term.length === '') {
+            return items;
+        }
+
+        return items.filter(item => {
+            return item.label.indexOf(term) > -1;
+        })
+    }
+
+    onUpdateFilter(filter) {
+        this.setState({filter});
+    }
+
+    filterTask(items, filter) {
+        if (filter === 'complete') {
+            return items.filter(item => item.complete);
+        } else {
+            return items;
+        }
+    }
     
     render() {
-        const {data, modal, user, isLoggedIn} = this.state;
+        const {data, modal, user, isLoggedIn, term, filter} = this.state;
         const allTasks = data.length;
         const completed = data.filter(item => item.complete).length;
+        const visiblePosts = this.filterTask(this.searchTask(data, term), filter);
         return (
             <div className="app">
                 <ModalLogin
@@ -150,13 +181,16 @@ export default class App extends Component {
                 onLogOut={this.onLogOut} />
                 <div className="search-panel d-flex">
                     <SearchPanel
-                    isLoggedIn={isLoggedIn} />
+                    isLoggedIn={isLoggedIn}
+                    onUpdateSearch={this.onUpdateSearch} />
                     <TaskFilter
-                    isLoggedIn={isLoggedIn} />
+                    isLoggedIn={isLoggedIn}
+                    filter ={filter}
+                    onUpdateFilter={this.onUpdateFilter} />
                 </div>
                 <TaskList
                 isLoggedIn={isLoggedIn}
-                posts={data}
+                posts={visiblePosts}
                 onComplete={this.onComplete}
                 onDelete={this.onDelete}
                 onImportant={this.onImportant}
