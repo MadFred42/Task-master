@@ -5,7 +5,7 @@ import TaskListItem from '../task-list-item';
 
 import './task-list.css';
 
-const TaskList = ({posts, onLike, onDelete}) => {
+const TaskList = ({posts, onComplete, onDelete, onImportant}) => {
     const elements = posts.map((item) => {
         const {id, ...itemProps} = item;
         return (
@@ -13,8 +13,9 @@ const TaskList = ({posts, onLike, onDelete}) => {
             key={id}
             className="list-group-item">
                 <TaskListItem {...itemProps}
-                onLike={() => onLike(id)}
-                onDelete={() => onDelete(id)} />
+                onComplete={() => onComplete(id)}
+                onDelete={() => onDelete(id)}
+                onImportant={() => onImportant(id)} />
             </li>
         )
     });

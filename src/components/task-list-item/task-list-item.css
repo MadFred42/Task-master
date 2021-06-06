@@ -17,20 +17,20 @@
 }
 
 .task-list-item .btn-star {
-    color: #FFD700
+    color: #69602c
 }
 
 .task-list-item .btn-trash {
-    color: red;
+    color: rgb(224, 49, 64);
 }
 
-.task-list-item .fa-heart {
+.task-list-item .fa-check-square {
     width: 35px;
     height: 35px;
     text-align: center;
     line-height: 35px;
     font-size: 16px;
-    color: red;
+    color: green;
     transition: 0.3s all;
     transform: translateX(30px);
     opacity: 0;
@@ -44,15 +44,15 @@
     transition: 0.5s all;
 }
 
-.task-list-item.like .fa-heart {
-    opacity: 1;
+.task-list-item.like .fa-check-square {
+    opacity: .4;
     transform: translateX(0px);
 }
 
-.task-list-item .important .task-list-item-label {
+.task-list-item.important .task-list-item-label {
     color: #FFD700;
 }
 
-.task-list-item .important .btn-star {
-    color: #aeaeae;
+.task-list-item.important .btn-star {
+    color: #FFD700;
 }

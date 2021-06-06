@@ -1,3 +1,9 @@
-.btn-log {
+.btn-logout {
+    text-align: center;
+    justify-content: center;    
+    margin-top: 300px;
+}
+
+.btn-login {
     text-align: right;
 }

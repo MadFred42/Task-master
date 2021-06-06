@@ -2,33 +2,35 @@ import React from 'react';
 
 import './task-list-item.css'
 
-const TaskListItem = ({label, important, like, onLike, onDelete}) => {
+const TaskListItem = ({label, important, complete, onComplete, onDelete, onImportant}) => {
     let classNames = 'task-list-item d-flex justify-content-between';
 
     if (important) {
-        classNames += ' important'
+        classNames += ' important';
     } 
 
-    if (like) {
-        classNames += ' like'
+    if (complete) {
+        classNames += ' like';
     }
     
     return (
         <div className={classNames}>
             <span 
             className="task-list-item-label"
-            onDoubleClick={onLike}>
+            onDoubleClick={onComplete}>
                 {label}</span>
             <div className="d-flex justify-content-center align-items-center">
-                <button className="btn-star btn-sm">
+                <button 
+                className="btn-star btn-sm"
+                onClick={onImportant}>
                     <i className="fas fa-star" />
                 </button>
                 <button 
-                className="btn-trash btn-sm"
+                className="btn-trash btn-sm"    
                 onClick={onDelete}>
                     <i className="fas fa-trash" />
                 </button>
-                <i className="far fa-heart" />
+                <i className="fas fa-check-square" />
             </div>
         </div>
     );

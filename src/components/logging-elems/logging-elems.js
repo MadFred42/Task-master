@@ -15,7 +15,7 @@ const LoggingElems = ({isLoggedIn, onLogIn, onLogOut}) => {
             )
         } else {
             return (
-                <div className="btn-log">
+                <div className="btn-logout">
                     <button
                     className="btn btn-info"
                     onClick={onLogIn}>
