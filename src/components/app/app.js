@@ -13,37 +13,26 @@ import './app.css';
 export default class App extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            data: [
-                
-            ],
-            modal: false,
-            isLoggedIn: false,
-            user: '',
-            term: '',
-            filter: 'all'
-        }
-        this.onLogIn = this.onLogIn.bind(this);
-        this.onSignIn = this.onSignIn.bind(this);
-        this.closeModal = this.closeModal.bind(this);
-        this.onLogOut = this.onLogOut.bind(this);
-        this.onAdd = this.onAdd.bind(this);
-        this.onComplete = this.onComplete.bind(this);
-        this.onDelete = this.onDelete.bind(this);
-        this.onToggleImportant = this.onToggleImportant.bind(this);
-        this.onUpdateSearch = this.onUpdateSearch.bind(this);
-        this.onUpdateFilter = this.onUpdateFilter.bind(this);
 
         this.id = 1;
     }
 
-    onLogIn() {
+    state = {
+        data: [],
+        modal: false,
+        isLoggedIn: false,
+        user: '',
+        term: '',
+        filter: 'all'
+    }
+
+    onLogIn = () => {
         this.setState({
             modal: true
         });
     }
 
-    onSignIn(textName, textLastName) {
+    onSignIn = (textName, textLastName) => {
         this.setState({
             modal: false,
             isLoggedIn: true,
@@ -51,11 +40,11 @@ export default class App extends Component {
         });
     }
 
-    closeModal() {
+    closeModal = () => {
         this.setState({modal: false});
     }
 
-    onLogOut() {
+    onLogOut = () => {
         this.setState({
             data: [],
             isLoggedIn: false,
@@ -63,7 +52,7 @@ export default class App extends Component {
         });
     }
 
-    onAdd(text) {
+    onAdd = (text) => {
         const newItem = {
             label: text,
             important: false,
@@ -83,7 +72,7 @@ export default class App extends Component {
        });
     }
 
-    onComplete(id) {
+    onComplete = (id) => {
         this.setState(({data}) => {
             const index = data.findIndex(item => item.id === id);
 
@@ -98,7 +87,7 @@ export default class App extends Component {
         });
     }
 
-    onDelete(id) {
+    onDelete = (id) => {
         this.setState(({data}) => {
             const index = data.findIndex(item => item.id === id);
 
@@ -109,7 +98,7 @@ export default class App extends Component {
         });
     }
 
-    onToggleImportant(index) {
+    onToggleImportant = (index) => {
         this.setState(({data}) => {
             const newArr = [...data];
             const oldItem = newArr.splice(index, 1)[0];
@@ -128,11 +117,11 @@ export default class App extends Component {
         });
     }
 
-    onUpdateSearch(term) {
+    onUpdateSearch = (term) => {
         this.setState({term});
     }
 
-    searchTask(items, term) {
+    searchTask = (items, term) => {
         if (term.length === '') {
             return items;
         }
@@ -142,11 +131,11 @@ export default class App extends Component {
         })
     }
 
-    onUpdateFilter(filter) {
+    onUpdateFilter = (filter) => {
         this.setState({filter});
     }
 
-    filterTask(items, filter) {
+    filterTask = (items, filter) => {
         if (filter === 'complete') {
             return items.filter(item => item.complete);
         } else {
@@ -159,40 +148,41 @@ export default class App extends Component {
         const allTasks = data.length;
         const completed = data.filter(item => item.complete).length;
         const visiblePosts = this.filterTask(this.searchTask(data, term), filter);
+
         return (
             <div className="app">
                 <ModalLogin
-                modal={modal}
-                closeModal={this.closeModal}
-                onSignIn={this.onSignIn} />
-                <AppHeader
-                allTasks={allTasks}
-                completed={completed}
-                isLoggedIn={isLoggedIn}
-                user={user} />
+                    modal={modal}
+                    closeModal={this.closeModal}
+                    onSignIn={this.onSignIn} />
+                <AppHeader 
+                    allTasks={allTasks}
+                    completed={completed}
+                    isLoggedIn={isLoggedIn}
+                    user={user} />                
                 <LoggingElems
-                isLoggedIn={isLoggedIn}
-                onLogIn={this.onLogIn}
-                onLogOut={this.onLogOut} />
+                    isLoggedIn={isLoggedIn}
+                    onLogIn={this.onLogIn}
+                    onLogOut={this.onLogOut} />
                 <div className="search-panel d-flex">
                     <SearchPanel
-                    isLoggedIn={isLoggedIn}
-                    onUpdateSearch={this.onUpdateSearch} />
+                        isLoggedIn={isLoggedIn}
+                        onUpdateSearch={this.onUpdateSearch} />
                     <TaskFilter
-                    isLoggedIn={isLoggedIn}
-                    filter ={filter}
-                    onUpdateFilter={this.onUpdateFilter} />
+                        isLoggedIn={isLoggedIn}
+                        filter ={filter}
+                        onUpdateFilter={this.onUpdateFilter} />
                 </div>
                 <TaskList
-                isLoggedIn={isLoggedIn}
-                posts={visiblePosts}
-                complete={data.complete}
-                onComplete={this.onComplete}
-                onDelete={this.onDelete}
-                onToggleImportant={this.onToggleImportant}/>
+                    isLoggedIn={isLoggedIn}
+                    posts={visiblePosts}
+                    complete={data.complete}
+                    onComplete={this.onComplete}
+                    onDelete={this.onDelete}
+                    onToggleImportant={this.onToggleImportant}/>
                 <TaskAddForm
-                isLoggedIn={isLoggedIn}
-                addTask={this.onAdd} />
+                    isLoggedIn={isLoggedIn}
+                    addTask={this.onAdd} />
             </div>
         )
     }
