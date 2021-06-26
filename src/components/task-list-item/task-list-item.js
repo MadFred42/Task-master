@@ -3,14 +3,16 @@ import React from 'react';
 import './task-list-item.css'
 
 const TaskListItem = ({label, important, complete, onComplete, onDelete, onToggleImportant}) => {
-    let classNames = 'task-list-item d-flex justify-content-between';
+    let classNames = 'task-list-item d-flex justify-content-between',
+        classImportant = 'btn-star btn-sm'
 
     if (important) {
         classNames += ' important';
     } 
 
     if (complete) {
-        classNames += ' like';
+        classNames += ' complete';
+        classImportant += ' d-none';
     }
     
     return (
@@ -21,7 +23,7 @@ const TaskListItem = ({label, important, complete, onComplete, onDelete, onToggl
                 {label}</span>
             <div className="d-flex justify-content-center align-items-center">
                 <button 
-                className="btn-star btn-sm"
+                className={classImportant}
                 onClick={onToggleImportant}>
                     <i className="fas fa-star" />
                 </button>
