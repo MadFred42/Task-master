@@ -3,30 +3,23 @@ import React, { Component } from 'react';
 import './modal-login.css';
 
 export default class ModalLogin extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            textName: '',
-            textLastName: ''
-        }
-        this.onUpdateName = this.onUpdateName.bind(this);
-        this.onUpdateLastName = this.onUpdateLastName.bind(this);
-        this.onAddName = this.onAddName.bind(this);
-        this.closeModalEsc = this.closeModalEsc.bind(this);
-        this.closeModal = this.closeModal.bind(this);
+
+    state = {
+        textName: '',
+        textLastName: ''
     }
 
-    onUpdateName(e) {
+    onUpdateName = (e) => {
         const textName = e.target.value;
         this.setState({textName});
     }
 
-    onUpdateLastName(e) {
+    onUpdateLastName = (e) => {
         const textLastName = e.target.value;
         this.setState({textLastName});
     }
 
-    onAddName(e) {
+    onAddName = (e) => {
         e.preventDefault();
         const {textName, textLastName} = this.state;
 
@@ -42,7 +35,7 @@ export default class ModalLogin extends Component {
         }
     }
 
-    closeModalEsc(e) {
+    closeModalEsc = (e) => {
         if (e.keyCode === 27) {
             this.props.closeModal();
         }

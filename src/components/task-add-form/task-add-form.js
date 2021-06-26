@@ -3,22 +3,18 @@ import React, {Component} from 'react';
 import './task-add-form.css';
 
 export default class TaskAddForm extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            text: ''
-        };
-        this.onType = this.onType.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
+    
+    state = {
+        text: ''
     }
 
-    onType(e) {
+    onType = (e) => {
         this.setState({
             text: e.target.value
         })
     }
 
-    onSubmit(e) {
+    onSubmit = (e) => {
         e.preventDefault();
         this.props.addTask(this.state.text);
         this.setState({
