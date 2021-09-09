@@ -1,0 +1,47 @@
+.button__group {
+    display: flex;
+    justify-content: space-between;
+    margin: 25px 1500px;
+    position: absolute;
+    width: 200px;
+}
+
+.button__group button {
+    border-radius: 5px;
+    box-shadow: 0px 8px 10px 4px rgba(34, 60, 80, 0.2);
+    cursor: pointer;
+    height: 35px;
+    width: 90px;
+}
+
+.creator__label {
+    bottom: 5px;
+    font : oblique 22px Georgia, serif;
+    font-size: 0.75em;
+    left: 10px;
+    position: absolute;
+}
+
+.header__body {
+    background-color: #00baa4;
+    box-shadow: 0px 13px 8px 0px rgba(34, 60, 80, 0.2);
+    height: 80px;
+    position: relative;
+}
+
+.main__label {
+    font : bold italic 22px Georgia, serif;
+    font-size: 2.75em;
+    margin: 15px 700px;
+    position: absolute;
+}
+
+.signin__button {
+    background-color: #5bde23;
+    color: white;
+}
+
+.signup__button {
+    background-color: #02ccc5;
+    color: white;
+}
