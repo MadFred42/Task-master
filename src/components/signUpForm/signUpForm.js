@@ -1,38 +1,41 @@
 import React from "react";
 import { connect } from "react-redux";
-import { closeSingUpForm } from "../../actions";
+import { closeSignUpForm, getEmail, getPassword, getUsername } from "../../actions";
 
 import './signUpForm.css';
 
-const SignUpForm = ({ closeSingUpForm, signUpForm }) => {
-    
+const SignUpForm = ({ closeSignUpForm, email, getEmail, getPassword, getUsername, password, signUpForm, username }) => {
+    console.log(email);
     const visible = signUpForm ? 'show' : 'hide';
 
+    const handleSubmit = () => {
+        console.log(`Email: ${email}, name: ${username}`);
+    }
+
     return (
-        <form className={`from__container ${visible}`} action="#">
+        <form className={`from__container ${visible}`} action="#" onChange={handleSubmit()} >
             <div className='from__header'>
                 <span>Sign up for Task Master</span>
                 <button 
                     className="close__btn"
                     type="button"
-                    onClick={() => closeSingUpForm()}>
+                    onClick={() => closeSignUpForm()}>
                         &times;
                 </button>
             </div>
-            {/* <span>Please insert your Name, email and password</span> */}
             <div className='signup__inpit-block'>
                 <input 
                     placeholder="Your username"
-                    type="text" 
-                    className="" />
+                    type="text"
+                    onChange={(e) => getUsername(e.target.value)} />
                 <input 
                     placeholder="Your email" 
-                    type="text" 
-                    className="" />
+                    type="text"
+                    onChange={(e) => getEmail(e.target.value)} />
                 <input 
                     placeholder="Password" 
-                    type="text" 
-                    className="" />
+                    type="text"
+                    onChange={(e) => getPassword(e.target.value)} />
                 <input 
                     placeholder="Repeat password" 
                     type="text" 
@@ -47,14 +50,20 @@ const SignUpForm = ({ closeSingUpForm, signUpForm }) => {
     )
 };
 
-const mapStateToProps = ({ signUpForm }) => {
+const mapStateToProps = ({ email, password, username, signUpForm }) => {
     return {
+        email,
+        password,
+        username,
         signUpForm
     }
 }
 
 const mapDispatchToProps = {
-    closeSingUpForm
+    closeSignUpForm,
+    getEmail,
+    getPassword,
+    getUsername
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm);

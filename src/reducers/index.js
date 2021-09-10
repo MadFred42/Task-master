@@ -1,5 +1,8 @@
 const initialState = {
-    signUpForm: false
+    email: '',
+    password: '',
+    signUpForm: false,
+    username: ''
 };
 
 const reducer = (state = initialState, action) => {
@@ -17,6 +20,24 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 signUpForm: false
             }
+        case 'GET_EMAIL':
+
+            return {
+                ...state,
+                email: action.payload
+            }
+        case 'GET_PASSWORD':
+
+            return {
+                ...state,
+                password: action.payload
+            };
+        case 'GET_USERNAME':
+
+        return {
+            ...state,
+            username: action.payload
+        }
         default:
             return state;
     }
