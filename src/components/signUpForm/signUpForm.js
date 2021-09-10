@@ -4,20 +4,23 @@ import { closeSingUpForm } from "../../actions";
 
 import './signUpForm.css';
 
-const SignUpForm = ({ closeSingUpForm }) => {
+const SignUpForm = ({ closeSingUpForm, signUpForm }) => {
     
-
+    const visible = signUpForm ? 'show' : 'hide';
 
     return (
-        <form
-            className='from_container'
-            action="#">
+        <form className={`from__container ${visible}`} action="#">
+            <div className='from__header'>
+                <span>Sign up for Task Master</span>
                 <button 
-                    className="close_btn"
+                    className="close__btn"
                     type="button"
                     onClick={() => closeSingUpForm()}>
                         &times;
                 </button>
+            </div>
+            {/* <span>Please insert your Name, email and password</span> */}
+            <div className='signup__inpit-block'>
                 <input 
                     placeholder="Your username"
                     type="text" 
@@ -26,11 +29,20 @@ const SignUpForm = ({ closeSingUpForm }) => {
                     placeholder="Your email" 
                     type="text" 
                     className="" />
-                <button 
-                    className="submit_btn"
-                    type="submit">
-                        Sign Up
-                </button>
+                <input 
+                    placeholder="Password" 
+                    type="text" 
+                    className="" />
+                <input 
+                    placeholder="Repeat password" 
+                    type="text" 
+                    className="" />
+            </div>
+            <button 
+                className="submit__btn"
+                type="submit">
+                    Sign Up
+            </button>
         </form>
     )
 };

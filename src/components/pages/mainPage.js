@@ -1,22 +1,17 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Header } from '../header/header';
+import Header from '../header';
+import LogInFrom from '../logInForm';
 import SignUpForm from '../signUpForm';
 
-const MainPage = ({ signUpForm }) => {
+const MainPage = () => {
 
     return (
         <>
-            {!signUpForm ? <Header /> : <SignUpForm />}
+            <Header /> 
+            <LogInFrom />
+            <SignUpForm />
         </>
     )
 }
 
-const mapStateToProps = ({ signUpForm }) => {
-    
-    return {
-        signUpForm
-    }
-}
-
-export default connect(mapStateToProps, null)(MainPage);
+export default MainPage;
