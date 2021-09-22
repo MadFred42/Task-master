@@ -1,19 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
-import { closeSignUpForm, getEmail, getPassword, getUsername } from "../../actions";
+import { closeSignUpForm, getEmail, getPassword, getUsername, getRepeatPassword, signUpComplete } from "../../actions";
+import WithTaskMasterService from '../hoc';
+import { useHistory } from 'react-router-dom';
 
 import './signUpForm.css';
 
-const SignUpForm = ({ closeSignUpForm, email, getEmail, getPassword, getUsername, password, signUpForm, username }) => {
-    console.log(email);
+const SignUpForm = ({ closeSignUpForm, service, signUpComplete, signUpForm }) => {
+    const [email, getEmail] = useState('');
+    const [password, getPassword] = useState('');
+    const [username, getUsername] = useState('');
+    const [repeatPassword, getRepeatPassword] = useState('');
+    const history = useHistory();
     const visible = signUpForm ? 'show' : 'hide';
+   
+    const handleSubmit = (e) => {
+        e.preventDefault();
 
-    const handleSubmit = () => {
-        console.log(`Email: ${email}, name: ${username}`);
+        if (repeatPassword.target.value !== password.target.value) {
+            password.target.style.border = '2px solid red';
+            repeatPassword.target.style.border = '2px solid red';
+            getPassword('');
+            getRepeatPassword('');
+            return
+        }
+        
+        service.signUpUser(email.target.value, password.target.value, username.target.value);
+        signUpComplete();
+        history.push('/tasks');
     }
 
     return (
-        <form className={`from__container ${visible}`} action="#" onChange={handleSubmit()} >
+        <form className={`from__container ${visible}`} action="#" onSubmit={(e) => handleSubmit(e)} >
             <div className='from__header'>
                 <span>Sign up for Task Master</span>
                 <button 
@@ -27,19 +45,19 @@ const SignUpForm = ({ closeSignUpForm, email, getEmail, getPassword, getUsername
                 <input 
                     placeholder="Your username"
                     type="text"
-                    onChange={(e) => getUsername(e.target.value)} />
+                    onChange={getUsername} />
                 <input 
                     placeholder="Your email" 
                     type="text"
-                    onChange={(e) => getEmail(e.target.value)} />
+                    onChange={getEmail} />
                 <input 
                     placeholder="Password" 
                     type="text"
-                    onChange={(e) => getPassword(e.target.value)} />
+                    onChange={getPassword} />
                 <input 
                     placeholder="Repeat password" 
                     type="text" 
-                    className="" />
+                    onChange={getRepeatPassword} />
             </div>
             <button 
                 className="submit__btn"
@@ -50,11 +68,12 @@ const SignUpForm = ({ closeSignUpForm, email, getEmail, getPassword, getUsername
     )
 };
 
-const mapStateToProps = ({ email, password, username, signUpForm }) => {
+const mapStateToProps = ({ email, password, username, repeatPassword, signUpForm }) => {
     return {
         email,
         password,
         username,
+        repeatPassword,
         signUpForm
     }
 }
@@ -63,7 +82,9 @@ const mapDispatchToProps = {
     closeSignUpForm,
     getEmail,
     getPassword,
-    getUsername
+    getUsername,
+    getRepeatPassword,
+    signUpComplete
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm);
+export default WithTaskMasterService()(connect(mapStateToProps, mapDispatchToProps)(SignUpForm));

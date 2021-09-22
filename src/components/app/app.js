@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router';
-import MainPage from '../pages/mainPage';
+import { MainPage, TaskPage } from '../pages';
 
 import './app.css';
 
@@ -10,6 +10,7 @@ export const App = () => {
         <div>
             <Switch>
                 <Route exact path='/' component={MainPage} />
+                <Route path='/tasks' component={TaskPage} />
             </Switch>
         </div>
     )

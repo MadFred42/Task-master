@@ -6,17 +6,21 @@ import { PersistGate } from 'redux-persist/integration/react'
 import App from './components/app';
 import configureStore from './store';
 import ErrorBoundry from './components/errorBoundry';
-// import TaskMasterServiceContext from './components/service-context'
+import ServiceContext from './components/serviceContext';
+import TaskMasterService from './services/taskMasterService';
 
 const { persistor, store } = configureStore();
+const service = new TaskMasterService();
 
 ReactDOM.render(
     <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
             <ErrorBoundry>
-                <Router>
-                    <App />
-                </Router>
+                <ServiceContext.Provider value={service}>
+                    <Router>
+                        <App />
+                    </Router>
+                </ServiceContext.Provider>
             </ErrorBoundry>
         </PersistGate>
     </Provider>, 

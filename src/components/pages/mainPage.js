@@ -6,11 +6,11 @@ import SignUpForm from '../signUpForm';
 const MainPage = () => {
 
     return (
-        <>
+        <div className='main__page'>
             <Header /> 
             <LogInFrom />
             <SignUpForm />
-        </>
+        </div>
     )
 }
 

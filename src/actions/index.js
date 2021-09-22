@@ -29,6 +29,21 @@ const getUsername = (username) => {
     }
 }
 
+const getRepeatPassword = (password) => {
+   
+    return {
+        type: 'GET_REPEAT_PASSWORD',
+        payload: password
+    } 
+}
+
+const signUpComplete = () => {
+
+    return {
+        type: 'SIGN_UP_OK'
+    }
+}
+
 const signUpForm = () => {
 
     return {
@@ -41,5 +56,7 @@ export {
     getEmail,
     getPassword,
     getUsername,
+    getRepeatPassword,
+    signUpComplete,
     signUpForm,
 }

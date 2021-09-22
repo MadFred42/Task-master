@@ -34,10 +34,25 @@ const reducer = (state = initialState, action) => {
             };
         case 'GET_USERNAME':
 
-        return {
-            ...state,
-            username: action.payload
-        }
+            return {
+                ...state,
+                username: action.payload
+        };
+        case 'SIGN_UP_OK':
+
+            return {
+                ...state,
+                email: '',
+                password: '',
+                username: '',
+                signUpForm: false
+            }
+        case 'GET_REPEAT_PASSWORD':
+
+            return {
+                ...state,
+                repeatPassword: action.payload
+            }
         default:
             return state;
     }
