@@ -1,0 +1,91 @@
+.login-form {
+    border: 1px solid #000;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px 1px #000;
+    display: block;
+    float: right;
+    height: 200px;
+    justify-content: center;
+    position: relative;
+    margin: 120px 50px;
+    width: 300px;
+}
+
+.login__input {
+    border: 0;
+    border-bottom: 1px solid #000;
+    border-radius: 5px;
+    box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.2);
+    display: block;
+    margin: 20px auto;
+    padding: 10px;
+    width: 250px;
+}
+
+.login__input:hover {
+    width: 255px;
+}
+
+.login__button {
+    cursor: pointer;
+    background-color: rgb(161, 250, 228);
+    border-radius: 10px;
+    display: flex;
+    height: 30px;
+    justify-content: center;
+    margin: auto;
+    opacity: .8;
+    width: 120px;
+}
+
+.login__button:hover {
+    height: 32px;
+    width: 125px;
+}
+
+.shadowed {
+    background-color: rgba(0, 0, 0, .5);
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.unshadowed {
+    background-color: rgba(0, 0, 0, 0);
+    height: 100%;
+    position: a;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+@media (max-width: 768px) and (max-height: 1024px) {
+    .login-form {
+        height: 250px;
+        width: 60%;
+        margin: 120px auto;
+        float: inherit;
+    }
+    
+    .login__input {
+        font-size: .8em;
+        margin: 20px auto;
+        padding: 8px;
+        width: 100%;
+    }
+
+    .login__input-block {
+        margin: 50px auto;
+        width: 80%;
+    }
+    
+    .login__input:hover {
+        width: 100%;
+    }
+    
+    .login__button {
+        width: 60%;
+    }
+}
