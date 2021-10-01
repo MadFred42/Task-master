@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from 'react';
-import { Route, Switch, useHistory } from 'react-router';
 import { observer } from 'mobx-react-lite';
 import { MainPage } from './pages';
 
@@ -18,9 +17,7 @@ const App = observer(() => {
     if (store.isLoading) {
         return <div style={{margin: "auto"}}>Loading...</div>
     }
-
-    const history = useHistory();
-    console.log(history.location);
+    
     return (
         <MainPage />
     );
