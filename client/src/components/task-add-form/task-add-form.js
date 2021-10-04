@@ -1,46 +1,33 @@
-import React, {Component} from 'react';
+import { toJS } from 'mobx';
+import { observer } from 'mobx-react-lite';
+import React, { useContext, useState } from 'react';
+import { Context } from '../..';
 
 import './task-add-form.css';
 
-export default class TaskAddForm extends Component {
-    
-    state = {
-        text: ''
-    }
+const TaskAddForm = observer(() => {
+    const [task, setTask] = useState('');
+    const {taskStore} = useContext(Context);
 
-    onType = (e) => {
-        this.setState({
-            text: e.target.value
-        })
+    const postTask = () => {
+        taskStore.saveTask(task);
+        setTask('');
     }
+    console.log(toJS(taskStore.tasks));
+    return (    
+        <div>
+            <input
+            className="form-control new-post-label"
+            type="text"
+            placeholder="What you need to do?"
+            value={task}
+            onChange={(e) => setTask(e.target.value)} />
+            <button
+            type="button"
+            className="btn btn-outline-secondary"
+            onClick={() => postTask()}>Add</button>
+        </div>
+    )
+});
 
-    onSubmit = (e) => {
-        e.preventDefault();
-        this.props.addTask(this.state.text);
-        this.setState({
-            text: ''
-        })
-    }
-    
-    render() {
-        if (this.props.isLoggedIn) {
-            return (
-                <form 
-                className="bottom-panel d-flex"
-                onSubmit={this.onSubmit}>
-                    <input
-                    className="form-control new-post-label"
-                    type="text"
-                    placeholder="What you need to do?"
-                    value={this.state.text}
-                    onChange={this.onType} />
-                    <button
-                    type="submit"
-                    className="btn btn-outline-secondary">Add</button>
-                </form>
-            )
-        } else {
-            return null;
-        }
-    }
-}
+export default TaskAddForm;

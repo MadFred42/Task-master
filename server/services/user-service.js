@@ -5,7 +5,8 @@ const mailService = require('./mail-service');
 const UserDto = require('../dtos/user-dto');
 const tokenService = require('./token-service');
 const ApiError = require('../exeptions/api-error');
-const { refresh } = require('../controllers/user-controller');
+const taskModel = require('../models/task-model');
+const taskService = require('./task-service');
 
 class UserService {
     async registration(email, password, username) {
@@ -90,12 +91,21 @@ class UserService {
 
         return users;
     }
+
+    async postTasks(label, refreshToken) {
+        const user = await userModel.findOne({ refreshToken });
+        const userDto = new UserDto(user);
+
+        const task = await taskService.saveTask(label, userDto.id);
+
+        return task;
+    }
+
+    async getAllTasks() {
+        const tasks = await taskModel.find();
+
+        return tasks;
+    }
 }
 
 module.exports = new UserService();
-
-// const user = await userModel.findOne({ refreshToken });
-
-//         if (!user) {
-//             throw ApiError.UnauthorizedError();
-//         }

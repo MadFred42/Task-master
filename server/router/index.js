@@ -11,8 +11,10 @@ router.post('/registration',
     userController.registration);
 router.post('/login', userController.login);
 router.post('/logout', userController.logout);
+router.post('/savetask', userController.saveTask);
 router.get('/activation/:link', userController.activation);
 router.get('/refresh', userController.refresh);
 router.get('/users', authMiddleware, userController.getUsers);
+router.get('/gettasks', userController.getTask);
 
 module.exports = router;

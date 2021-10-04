@@ -1,41 +1,55 @@
-import React from 'react';
+import { observer } from 'mobx-react-lite';
+import React, { useContext } from 'react';
+import { Context } from '../..';
 
 import './task-list-item.css'
 
-const TaskListItem = ({label, important, complete, onComplete, onDelete, onToggleImportant}) => {
-    let classNames = 'task-list-item d-flex justify-content-between',
+const TaskListItem = observer(() => {
+    const {taskStore} = useContext(Context);
+    const tasks = JSON.parse(localStorage.getItem('tasks'));
+    console.log(tasks);
+    const content = tasks.map((item, index) => {
+        const {label, _id} = item;
+        let classNames = 'task-list-item d-flex justify-content-between',
         classImportant = 'btn-star btn-sm'
 
-    if (important) {
-        classNames += ' important';
-    } 
+        if (taskStore.isImportant) {
+            classNames += ' important';
+        } 
 
-    if (complete) {
-        classNames += ' complete';
-        classImportant += ' d-none';
-    }
+        if (taskStore.isComplete) {
+            classNames += ' complete';
+            classImportant += ' d-none';
+        }
+
+        return (
+            <li className={classNames} key={_id}>
+                <span 
+                className="task-list-item-label">
+                    {label}</span>
+                <div className="list__group-buttons">
+                    <button 
+                    className={classImportant}>
+                        <i className="fas fa-star"
+                        onClick={() => taskStore.setImportant()} />
+                    </button>
+                    <button 
+                    className="btn-trash btn-sm">
+                        <i className="fas fa-trash" />
+                    </button>
+                    <i className="fas fa-check-square" />
+                </div>
+            </li>
+        )
+    })
+    
+    
     
     return (
-        <div className={classNames}>
-            <span 
-            className="task-list-item-label"
-            onDoubleClick={onComplete}>
-                {label}</span>
-            <div className="d-flex justify-content-center align-items-center">
-                <button 
-                className={classImportant}
-                onClick={onToggleImportant}>
-                    <i className="fas fa-star" />
-                </button>
-                <button 
-                className="btn-trash btn-sm"    
-                onClick={onDelete}>
-                    <i className="fas fa-trash" />
-                </button>
-                <i className="fas fa-check-square" />
-            </div>
-        </div>
+        <>
+            {content}
+        </>
     );
-}
+})
 
 export default TaskListItem;

@@ -8,7 +8,7 @@ import TaskList from '../components/task-list';
 
 const MainPage = observer(() => {
     const {store} = useContext(Context);
-    console.log(store.isAuth);
+    
     return (
         <div className='main__page'>
             <Header /> 
