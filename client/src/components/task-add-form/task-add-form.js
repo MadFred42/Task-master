@@ -13,7 +13,7 @@ const TaskAddForm = observer(() => {
         taskStore.saveTask(task);
         setTask('');
     }
-    console.log(toJS(taskStore.tasks));
+    
     return (    
         <div>
             <input

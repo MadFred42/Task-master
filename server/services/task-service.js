@@ -1,10 +1,10 @@
 const taskModel = require("../models/task-model");
 
 class TaskService {
-    async saveTask(label, userId) {
-        const task = await taskModel.create({label, user: userId});
+    async saveTask(task) {
+        const newTask = await taskModel.create({task});
         
-        return task;
+        return newTask;
     }
 }
 

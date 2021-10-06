@@ -22,7 +22,6 @@ export default class TaskStore {
 
     setTasks(task) {
         this._tasks.push(task);
-        localStorage.setItem('tasks', JSON.stringify(this.tasks));
     }
  
     get isImportant() {
@@ -37,12 +36,12 @@ export default class TaskStore {
         return this._tasks;
     }
 
-    async saveTask(label) {
-        console.log(label);
+    async saveTask(task) {
+        console.log(task);
         try {
-            const response = await TaskMasterService.saveTask(label);
-            console.log(response);
-            this.setTasks(response.data);
+            const response = await TaskMasterService.saveTask(task);
+            console.log(response.data.tasks);
+            response.data.tasks.map(item => this.setTasks(item));
         } catch (e) {
             console.log(e.response?.data?.message);
         }
@@ -50,13 +49,13 @@ export default class TaskStore {
 
     
 
-    async getAllTasks() {
-        try {
-            const response = await axios.get(`${API_URL}/gettasks`, { withCredentials: true });
-            console.log(response);
-            response.data.map(item => this.setTasks(item.label));
-        } catch (e) {
-            console.log(e.response?.data?.message);
-        }
-    }
+    // async getAllTasks() {
+    //     try {
+            
+    //         console.log(response);
+    //         response.data.map(item => this.setTasks(item.label));
+    //     } catch (e) {
+    //         console.log(e.response?.data?.message);
+    //     }
+    // }
 }

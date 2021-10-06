@@ -1,3 +1,4 @@
+import { toJS } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React, { useContext } from 'react';
 import { Context } from '../..';
@@ -6,10 +7,14 @@ import './task-list-item.css'
 
 const TaskListItem = observer(() => {
     const {taskStore} = useContext(Context);
-    const tasks = JSON.parse(localStorage.getItem('tasks'));
+    const tasks = toJS(taskStore.tasks);
+    
+    if (!tasks) {
+        return null;
+    }
     console.log(tasks);
     const content = tasks.map((item, index) => {
-        const {label, _id} = item;
+        const {task, _id} = item;
         let classNames = 'task-list-item d-flex justify-content-between',
         classImportant = 'btn-star btn-sm'
 
@@ -26,7 +31,7 @@ const TaskListItem = observer(() => {
             <li className={classNames} key={_id}>
                 <span 
                 className="task-list-item-label">
-                    {label}</span>
+                    {task}</span>
                 <div className="list__group-buttons">
                     <button 
                     className={classImportant}>
