@@ -7,7 +7,7 @@ import './task-list-item.css'
 
 const TaskListItem = observer(() => {
     const {taskStore} = useContext(Context);
-    const tasks = toJS(taskStore.tasks);
+    const tasks = toJS(taskStore.tasks).flat();
     
     if (!tasks) {
         return null;

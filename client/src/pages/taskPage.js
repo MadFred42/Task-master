@@ -1,10 +1,9 @@
 import React from "react";
+import TaskList from '../components/task-list';
 
 const TaskPage = () => {
-    console.log('hi');
-    return (
-        <div>Hello world</div>
-    )
+    
+    return <TaskList />
 }
 
 export default TaskPage;

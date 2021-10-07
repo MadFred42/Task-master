@@ -78,34 +78,24 @@ class UserController {
         }
     }
 
-    async getUser(req, res, next) {
-        try {
-            const { refreshToken } = req.cookies;
-            const user = await userService.getUser(refreshToken);
-
-            return res.json(user);
-        } catch (e) {
-            next(e);
-        }
-    }
-
     async saveTask(req, res, next) {
         try {
             const { refreshToken } = req.cookies;
             const { task } = req.body;
             const tasks = await userService.saveTask(task, refreshToken);
-            console.log(tasks);
+            
             return res.json(tasks);
         } catch (e) {
             next(e);
         }
     }
 
-    async getTask(req, res, next) {
+    async getUsersTasks(req, res, next) {
         try {
-            const tasks = await userService.getAllTasks();
+            const { refreshToken } = req.cookies;
+            const user = await userService.getUsersTasks(refreshToken);
 
-            return res.json(tasks);
+            return res.json(user.tasks);
         } catch (e) {
             next(e);
         }

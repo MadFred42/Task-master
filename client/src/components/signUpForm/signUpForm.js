@@ -11,7 +11,7 @@ const SignUpForm = observer(() => {
 
     const {store} = useContext(Context);
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
         store.registration(email, password, username);
     }
 
@@ -20,7 +20,7 @@ const SignUpForm = observer(() => {
     }
 
     return (
-        <form className='from__container' action="#" onSubmit={(e) => handleSubmit(e)} >
+        <form className='from__container' action="#" onSubmit={handleSubmit} >
             <div className='from__header'>
                 <span>Sign up for Task Master</span>
                 <button 

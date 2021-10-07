@@ -93,21 +93,20 @@ class UserService {
     }
 
     async saveTask(task, refreshToken) {
-        try {
-            const newTask = await taskService.saveTask(task);
-            const findActiveUser = await userModel.findOneAndUpdate({ refreshToken }, { tasks: newTask });
-            const userDto = new UserDto(findActiveUser);
-            
-            return userDto;
-        } catch (error) {
-            
-        }
+        const userData = tokenService.validateRefreshToken(refreshToken);
+        const user = await userModel.findOne({ id: userData.id });
+        const newTask = await taskService.saveTask(task);
+        user.tasks.push(newTask);
+        user.save();
+        
+        return newTask;
     }
 
-    async getUser(refreshToken) {
-        const user = await userModel.find(refreshToken);
+    async getUsersTasks(refreshToken) {
+        const userData = tokenService.validateRefreshToken(refreshToken);
+        const user = await userModel.findOne({ email: userData.email });
 
-        return user.data;
+        return user;
     }
 }
 

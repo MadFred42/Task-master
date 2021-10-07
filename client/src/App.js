@@ -1,25 +1,51 @@
 import React, { useContext, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
-import { MainPage } from './pages';
+import { Context } from '.';
+import { Route, Switch, useHistory } from 'react-router';
+import { MAIN_ROUTE, TASK_ROUTE } from './utils/consts';
 
 import './App.css';
-import { Context } from '.';
+import Header from './components/header';
+import { authRoutes, publicRoutes } from './routes';
 
 const App = observer(() => {
-    const {store} = useContext(Context);
-
+    const { taskStore, store } = useContext(Context);
+    const history = useHistory();
+    console.log(history);
     useEffect(() => {
         if (localStorage.getItem('token')) {
             store.checkAuth();
         }
     }, []);
 
-    if (store.isLoading) {
+    useEffect(() => {
+        taskStore.getUsersTasks();
+    }, [history.location]);
+
+    useEffect(() => {
+        if (store.isAuth) {
+            history.push(TASK_ROUTE);
+        } else {
+            history.push(MAIN_ROUTE);
+        }
+    }, [store.isAuth]);
+
+    if (store.isLoading || taskStore.isLoading) {
         return <div style={{margin: "auto"}}>Loading...</div>
     }
     
     return (
-        <MainPage />
+        <>  
+            <Header />
+            <Switch>
+                {store.isAuth && authRoutes.map(({ path, Component }) => 
+                    <Route key={path} path={path} component={Component} />
+                )}
+                {publicRoutes.map(({ path, Component }) => 
+                    <Route key={path} path={path} component={Component} />
+                )}
+            </Switch>
+        </>
     );
 });
 
