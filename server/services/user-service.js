@@ -94,7 +94,7 @@ class UserService {
 
     async saveTask(task, refreshToken) {
         const userData = tokenService.validateRefreshToken(refreshToken);
-        const user = await userModel.findOne({ id: userData.id });
+        const user = await userModel.findById(userData.id);
         const newTask = await taskService.saveTask(task);
         user.tasks.push(newTask);
         user.save();
@@ -104,9 +104,28 @@ class UserService {
 
     async getUsersTasks(refreshToken) {
         const userData = tokenService.validateRefreshToken(refreshToken);
-        const user = await userModel.findOne({ email: userData.email });
+        const user = await userModel.findById(userData.id);
+        const userDto = new UserDto(user);
 
-        return user;
+        return userDto; 
+    }
+
+    async toggleImportantTask(task, refreshToken) {
+        await taskService.importantTask(task);
+        const userData = tokenService.validateRefreshToken(refreshToken);
+        const user = await userModel.findById(userData.id);
+        user.tasks.map(item => {
+            if (item.task === task) {
+                console.log(item.important);
+                item.important = !item.important;
+                console.log(item.important);
+            }
+            return item;
+        })
+        user.save();
+        const userDto = new UserDto(user);
+
+        return userDto;
     }
 }
 

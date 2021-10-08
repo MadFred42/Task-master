@@ -1,17 +1,19 @@
 .list__group-buttons {
-    align-items: center;
     display: flex;
-    justify-content: center;
+    margin: 0 10px;
 }
 
-.task-list-item {
-    font-size: 1.25rem;
+.task__list-item {
     border: 1px solid black;
     border-radius: 5px;
-    padding: auto;
+    display: flex;
+    font-size: 1.25rem;
+    justify-content: space-between;
+    margin: 3px 2px;
+    padding: 5px;
 }
 
-.task-list-item button {
+.task__list-item buttons {
     width: 35px;
     height: 35px;
     margin: 3px;
@@ -20,20 +22,22 @@
     cursor: pointer;
 }
 
-.task-list-item button:focus {
+.list__group-buttons button:hover {
+    cursor: pointer;
     box-shadow: none;
     outline: none;
 }
 
-.task-list-item .btn-star {
-    color: #69602c
+.list__group-buttons .btn-star {
+    color: #69602c;
+    margin: 0 5px;
 }
 
-.task-list-item .btn-trash {
+.list__group-buttons .btn-trash {
     color: rgb(224, 49, 64);
 }
 
-.task-list-item .fa-check-square {
+.list__group-buttons .fa-check-square {
     width: 35px;
     height: 35px;
     text-align: center;
@@ -45,27 +49,26 @@
     opacity: 0;
 }
 
-.task-list-item-label {
-    display: block;
-    line-height: 35px;
-    cursor: pointer;
-    user-select: none;
-    transition: 0.5s all;
+.task__list-item-label {
+    display: relative;
+    left: 2%;
+    margin: 0 5px;
 }
 
-.task-list-item.complete .task-list-item-label {
+.task__list-item.complete.task-list-item-label {
     text-decoration: line-through;
 }
 
-.task-list-item.complete  .fa-check-square {
+.task__list-item.complete.fa-check-square {
     opacity: .4;
     transform: translateX(0px);
 }
 
-.task-list-item.important {
-    color: #FFD700;
+.task__list-item.important {
+    color: black;
+    background-color: #FFD700;
 }
 
-.task-list-item.important .btn-star {
+.task__list-item.important .btn-star {
     color: #FFD700;
 }

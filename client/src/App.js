@@ -3,15 +3,15 @@ import { observer } from 'mobx-react-lite';
 import { Context } from '.';
 import { Route, Switch, useHistory } from 'react-router';
 import { MAIN_ROUTE, TASK_ROUTE } from './utils/consts';
-
-import './App.css';
 import Header from './components/header';
 import { authRoutes, publicRoutes } from './routes';
+
+import './App.css';
 
 const App = observer(() => {
     const { taskStore, store } = useContext(Context);
     const history = useHistory();
-    console.log(history);
+    
     useEffect(() => {
         if (localStorage.getItem('token')) {
             store.checkAuth();

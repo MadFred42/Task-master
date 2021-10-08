@@ -6,6 +6,12 @@ class TaskService {
         
         return newTask;
     }
+
+    async importantTask(task) {
+        const veryTask = await taskModel.findOne({ task });
+        veryTask.important = !task.important;
+        veryTask.save();
+    }
 }
 
 module.exports = new TaskService();

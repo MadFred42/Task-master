@@ -1,9 +1,36 @@
-.bottom-panel {
-    margin-top: 20px;
+.add__button {
+    border-radius: 5px;
+    height: 35px;
+    margin: 0 15%;
+    width: 10%;
 }
 
-.bottom-panel .new-post-label {
+.add__button:hover {
+    background-color: #00baa4;
+    color: white;
+}
+
+.add__form {
+    display: flex;
+    justify-content: left;
+    margin: 20px 0;
+    position: relative;
+}
+
+.add__input {
+    border: 1px solid black;
+    border-radius: 5px;
+    height: 35px;
+    width: 50%;
+}
+
+/* .bottom-panel {
+    margin-top: 20px;
+} */
+/* form-control new-post-label inpt */
+/* .bottom-panel .new-post-label {
     width: auto;
     flex-grow: 1;
-    margin-right: 3px;
-}
+    margin-right: 3px; */
+/* } */
+/* btn btn-outline-secondary */

@@ -2,6 +2,7 @@ const userService = require('../services/user-service');
 const {validationResult} = require('express-validator');
 const ApiError = require('../exeptions/api-error');
 const userModel = require('../models/user-model');
+const taskService = require('../services/task-service');
 
 class UserController {
     async registration(req, res, next) {
@@ -83,7 +84,7 @@ class UserController {
             const { refreshToken } = req.cookies;
             const { task } = req.body;
             const tasks = await userService.saveTask(task, refreshToken);
-            
+            // console.log(tasks);
             return res.json(tasks);
         } catch (e) {
             next(e);
@@ -94,8 +95,20 @@ class UserController {
         try {
             const { refreshToken } = req.cookies;
             const user = await userService.getUsersTasks(refreshToken);
+            
+            return res.json(user);
+        } catch (e) {
+            next(e);
+        }
+    }
 
-            return res.json(user.tasks);
+    async toggleImportantTask(req, res, next) {
+        try {
+            const { refreshToken } = req.cookies;
+            const { task } = req.body;
+            const importantTask = await userService.toggleImportantTask(task, refreshToken);
+
+            return res.json(importantTask);
         } catch (e) {
             next(e);
         }

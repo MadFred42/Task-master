@@ -12,10 +12,6 @@ export default class TaskStore {
         makeAutoObservable(this);
     }
 
-    setImportant() {
-        this._isImportant = !this._isImportant;
-    }
-
     setComplete(bool) {
         this._isComplete = bool;
     }
@@ -45,14 +41,14 @@ export default class TaskStore {
     }
 
     get tasks() {
-        return this._tasks;
+        return toJS(this._tasks);
     }
 
     async saveTask(task) {
         console.log(task);
         try {
             const response = await TaskMasterService.saveTask(task);
-            
+            console.log(response.data);
             this.setTasks(response.data)
         } catch (e) {
             console.log(e.response?.data?.message);
@@ -63,12 +59,31 @@ export default class TaskStore {
         this.setLoading(true);
         try {
             const response = await axios.get(`${API_URL}/userstasks`, { withCredentials: true });
+            console.log(response);
             this.updateTasks();
-            this.setTasks(response.data);
+            response.data.tasks.map(task => this.setTasks(task));
         } catch (e) {
             console.log(e.response?.data?.message);
         } finally {
             this.setLoading(false);
+        }
+    }
+
+    async toggleImportantTask(task) {
+        try {
+            const response = await TaskMasterService.toggleImportantTask(task);
+            console.log(response.data.tasks);
+            // const important = this.tasks.map((item, index) => {
+            //     if (item.task === task) {
+            //         item.important = !item.important
+            //     }
+
+            //     return item;
+            // });
+            // this.updateTasks();
+            // important.map(task => this.setTasks(task));
+        } catch (e) {
+            console.log(e.response?.data?.message);
         }
     }
 }

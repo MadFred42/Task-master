@@ -1,44 +1,48 @@
-import { toJS } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React, { useContext } from 'react';
 import { Context } from '../..';
 
-import './task-list-item.css'
+import './task-list-item.css';
 
 const TaskListItem = observer(() => {
-    const {taskStore} = useContext(Context);
-    const tasks = toJS(taskStore.tasks).flat();
+    const { taskStore } = useContext(Context);
     
-    if (!tasks) {
+    if (!taskStore.tasks) {
         return null;
     }
-    console.log(tasks);
-    const content = tasks.map((item, index) => {
-        const {task, _id} = item;
-        let classNames = 'task-list-item d-flex justify-content-between',
-        classImportant = 'btn-star btn-sm'
+    
+    const content = taskStore.tasks.map((item, index) => {
+        const { _id, completed, important, task } = item;
+        let classNames;
+        let classImportant  = 'btn-star btn-sm'
+        
+        if (important) {
+            classNames = 'task__list-item important';
+        } else {
+            classNames = 'task__list-item';
+        }
 
-        if (taskStore.isImportant) {
-            classNames += ' important';
-        } 
-
-        if (taskStore.isComplete) {
+        if (completed) {
             classNames += ' complete';
-            classImportant += ' d-none';
+            classImportant += ' d-none'
         }
 
         return (
             <li className={classNames} key={_id}>
                 <span 
-                className="task-list-item-label">
+                className="task__list-item-label">
                     {task}</span>
                 <div className="list__group-buttons">
-                    <button 
-                    className={classImportant}>
-                        <i className="fas fa-star"
-                        onClick={() => taskStore.setImportant()} />
+                    <button
+                    className={classImportant}
+                    id={task}
+                    onClick={(e) => taskStore.toggleImportantTask(e.target.id)}>
+                        <i 
+                        className="fas fa-star"
+                        id={task} />
                     </button>
                     <button 
+                    id={task}
                     className="btn-trash btn-sm">
                         <i className="fas fa-trash" />
                     </button>

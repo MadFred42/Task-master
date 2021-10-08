@@ -9,24 +9,28 @@ const TaskAddForm = observer(() => {
     const [task, setTask] = useState('');
     const {taskStore} = useContext(Context);
 
-    const postTask = () => {
+    const postTask = (e) => {
         taskStore.saveTask(task);
         setTask('');
+        e.preventDefault();
     }
     
     return (    
-        <div>
+        <form 
+            className='add__form'
+            onSubmit={postTask}>
             <input
-            className="form-control new-post-label"
-            type="text"
-            placeholder="What you need to do?"
-            value={task}
-            onChange={(e) => setTask(e.target.value)} />
+                className="add__input"
+                type="text"
+                placeholder="What you need to do?"
+                value={task}
+                onChange={(e) => setTask(e.target.value)} />
             <button
-            type="button"
-            className="btn btn-outline-secondary"
-            onClick={() => postTask()}>Add</button>
-        </div>
+                type="submit"
+                className="add__button">
+                    Add
+            </button>
+        </form>
     )
 });
 
