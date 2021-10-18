@@ -1,6 +1,7 @@
 const taskModel = require("../models/task-model");
 
 class TaskService {
+
     async saveTask(task) {
         const newTask = await taskModel.create({task});
         
@@ -8,9 +9,19 @@ class TaskService {
     }
 
     async importantTask(task) {
-        const veryTask = await taskModel.findOne({ task });
-        veryTask.important = !task.important;
-        veryTask.save();
+        const theTask = await taskModel.findOne({ task });
+        theTask.important = !theTask.important;
+        theTask.save();
+
+        return theTask;
+    }   
+
+    async deleteTask(task) {
+        const theTask = await taskModel.findOne({ task });
+        console.log(theTask);
+        await taskModel.deleteOne({ task });
+
+        return theTask;
     }
 }
 

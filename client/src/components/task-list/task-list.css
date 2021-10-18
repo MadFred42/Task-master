@@ -1,8 +1,5 @@
 .task__list {
-    margin: 100px;
-    position: relative;
-}
-
-.task__list .list__group-item {
-    padding: 20px 35px 10px 35px;
+    display: block;
+    margin: 15px auto;
+    width: 90%;
 }

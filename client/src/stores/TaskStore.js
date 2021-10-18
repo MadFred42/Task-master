@@ -5,7 +5,6 @@ import { API_URL } from "../http";
 
 export default class TaskStore {
     constructor() {
-        this._isImportant = false // to check is improtant task or not
         this._isComplete = false // to check is completed task or not
         this._tasks = [] // Array with tasks 
         this._isLoading = false // loading while updating
@@ -73,15 +72,20 @@ export default class TaskStore {
         try {
             const response = await TaskMasterService.toggleImportantTask(task);
             console.log(response.data.tasks);
-            // const important = this.tasks.map((item, index) => {
-            //     if (item.task === task) {
-            //         item.important = !item.important
-            //     }
+            this.updateTasks();
+            response.data.tasks.map(task => this.setTasks(task));
+        } catch (e) {
+            console.log(e.response?.data?.message);
+        }
+    }
 
-            //     return item;
-            // });
-            // this.updateTasks();
-            // important.map(task => this.setTasks(task));
+    async deleteTask(task) {
+        console.log(task);
+        try {
+            const response = await TaskMasterService.deleteTask(task);
+            console.log(response);
+            this.updateTasks();
+            response.data.tasks.map(task => this.setTasks(task));
         } catch (e) {
             console.log(e.response?.data?.message);
         }

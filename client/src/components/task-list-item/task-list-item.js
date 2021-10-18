@@ -43,10 +43,17 @@ const TaskListItem = observer(() => {
                     </button>
                     <button 
                     id={task}
-                    className="btn-trash btn-sm">
-                        <i className="fas fa-trash" />
+                    className="btn-trash btn-sm"
+                    onClick={(e) => taskStore.deleteTask(e.target.id)}>
+                        <i 
+                            className="fas fa-trash"
+                            id={task} />
                     </button>
-                    <i className="fas fa-check-square" />
+                    <button className="btn-check-square">
+                        <i 
+                            className="fas fa-check-square"
+                            id={task} />
+                    </button>
                 </div>
             </li>
         )
@@ -55,9 +62,7 @@ const TaskListItem = observer(() => {
     
     
     return (
-        <>
-            {content}
-        </>
+        content
     );
 })
 

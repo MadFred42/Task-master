@@ -9,4 +9,9 @@ export default class TaskMasterService {
         console.log(task);
         return $api.post('/important', { task });
     }
+
+    static async deleteTask(task) {
+        console.log(task);
+        return $api.post('/deleteTask', { task });
+    }
 }

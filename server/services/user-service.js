@@ -111,20 +111,34 @@ class UserService {
     }
 
     async toggleImportantTask(task, refreshToken) {
-        await taskService.importantTask(task);
+        const importantTask = await taskService.importantTask(task);
         const userData = tokenService.validateRefreshToken(refreshToken);
         const user = await userModel.findById(userData.id);
-        user.tasks.map(item => {
-            if (item.task === task) {
-                console.log(item.important);
-                item.important = !item.important;
-                console.log(item.important);
-            }
-            return item;
-        })
+        
+        if (importantTask.important) {
+            user.tasks.splice(user.tasks.findIndex(item => item.task === importantTask.task), 1);
+            user.tasks.unshift(importantTask);
+        } else {
+            const isImportant = user.tasks.filter(task => task.important);
+            user.tasks.splice(user.tasks.findIndex(item => item.task === importantTask.task), 1);
+            user.tasks.splice(isImportant.length - 1, 0, importantTask);
+        }
+
         user.save();
         const userDto = new UserDto(user);
 
+        return userDto;
+    }
+
+    async deleteTask(task, refreshToken) {
+        console.log(task);
+        const deletedTask = await taskService.deleteTask(task);
+        const userData = tokenService.validateRefreshToken(refreshToken);
+        const user = await userModel.findById(userData.id);
+        user.tasks.splice(user.tasks.findIndex(item => item.task === deletedTask.task), 1);
+        user.save();
+        const userDto = new UserDto(user);
+        
         return userDto;
     }
 }

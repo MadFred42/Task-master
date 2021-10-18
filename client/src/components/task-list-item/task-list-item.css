@@ -1,6 +1,10 @@
 .list__group-buttons {
+    box-sizing: border-box;
     display: flex;
-    margin: 0 10px;
+    margin: 0 .5%;
+    justify-content: space-evenly;
+    position: relative;
+    width: 100px;
 }
 
 .task__list-item {
@@ -9,44 +13,30 @@
     display: flex;
     font-size: 1.25rem;
     justify-content: space-between;
-    margin: 3px 2px;
-    padding: 5px;
-}
-
-.task__list-item buttons {
-    width: 35px;
-    height: 35px;
-    margin: 3px;
-    font-size: 17px;
-    border: none;
-    cursor: pointer;
+    margin: 5px;
+    width: 100%;
 }
 
 .list__group-buttons button:hover {
     cursor: pointer;
-    box-shadow: none;
-    outline: none;
 }
 
 .list__group-buttons .btn-star {
+    border: 0;
     color: #69602c;
-    margin: 0 5px;
 }
 
 .list__group-buttons .btn-trash {
+    border: 0;
     color: rgb(224, 49, 64);
 }
 
 .list__group-buttons .fa-check-square {
-    width: 35px;
-    height: 35px;
-    text-align: center;
-    line-height: 35px;
-    font-size: 16px;
-    color: green;
-    transition: 0.3s all;
-    transform: translateX(30px);
-    opacity: 0;
+    align-self: center; 
+}
+
+.btn-check-square {
+    border: 0;
 }
 
 .task__list-item-label {

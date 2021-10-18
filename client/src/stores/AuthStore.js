@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, toJS } from 'mobx';
 import { API_URL } from '../http';
 import AuthService from '../services/AuthService';
 
@@ -34,7 +34,7 @@ export default class AuthStore {
     }
 
     get user() {
-        return this._user;
+        return toJS(this._user);
     }
 
     get isLoading() {

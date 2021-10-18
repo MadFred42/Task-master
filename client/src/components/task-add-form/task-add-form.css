@@ -1,7 +1,7 @@
 .add__button {
     border-radius: 5px;
+    font-size: 1em;
     height: 35px;
-    margin: 0 15%;
     width: 10%;
 }
 
@@ -12,8 +12,7 @@
 
 .add__form {
     display: flex;
-    justify-content: left;
-    margin: 20px 0;
+    justify-content: space-around;
     position: relative;
 }
 
@@ -24,13 +23,8 @@
     width: 50%;
 }
 
-/* .bottom-panel {
-    margin-top: 20px;
-} */
-/* form-control new-post-label inpt */
-/* .bottom-panel .new-post-label {
-    width: auto;
-    flex-grow: 1;
-    margin-right: 3px; */
-/* } */
-/* btn btn-outline-secondary */
+@media (max-width: 500px) {
+    .add__button {
+        font-size: .75em;
+    }
+}

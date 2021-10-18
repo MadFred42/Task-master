@@ -1,19 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { Context } from '../..';
 
 import './app-header.css';
 
-const AppHeader = ({isLoggedIn, user, allTasks, completed}) => {
+const AppHeader = () => {
+    const { taskStore } = useContext(Context);
+    const completed = taskStore.tasks.filter(task => task.completed);
 
-    if (isLoggedIn) {
-        return (
-            <div className="app-header d-flex">
-                <h1>{user}</h1>
-                <h2>You have {allTasks} tasks, {completed} completed</h2>
-            </div>
-        )
-    } else {
-        return null;
-    }
+    return (
+        <div className="app__header">
+            <h1>You have {taskStore.tasks.length} tasks, {completed.length} completed</h1>
+        </div>
+    )
 }
 
 export default AppHeader;
