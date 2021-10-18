@@ -7,11 +7,11 @@ import './task-list-item.css';
 const TaskListItem = observer(() => {
     const { taskStore } = useContext(Context);
     
-    if (!taskStore.tasks) {
+    if (!taskStore.tasks) { // avoiding any errors if there's no tasks
         return null;
     }
     
-    const content = taskStore.tasks.map((item, index) => {
+    const content = taskStore.tasks.map(item => {
         const { _id, completed, important, task } = item;
         let classNames;
         let classImportant  = 'btn-star btn-sm'
@@ -23,8 +23,7 @@ const TaskListItem = observer(() => {
         }
 
         if (completed) {
-            classNames += ' complete';
-            classImportant += ' d-none'
+            classNames = 'task__list-item complete';
         }
 
         return (
@@ -49,7 +48,9 @@ const TaskListItem = observer(() => {
                             className="fas fa-trash"
                             id={task} />
                     </button>
-                    <button className="btn-check-square">
+                    <button className="btn-check-square"
+                    id={task}
+                    onClick={(e) => taskStore.completeTask(e.target.id)}>
                         <i 
                             className="fas fa-check-square"
                             id={task} />

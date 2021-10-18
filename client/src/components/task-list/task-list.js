@@ -13,7 +13,7 @@ const TaskList = () => {
         return (
             <>
                 {
-                    !store.user.isActivated && 
+                    !store.user.isActivated &&  // if user didn't activate his account he'll get this message
                         <span>Please activate your account! The activation link was sent to your email.</span>
                 }
                 <ul className='task__list'>

@@ -95,7 +95,7 @@ class UserController {
         try {
             const { refreshToken } = req.cookies;
             const user = await userService.getUsersTasks(refreshToken);
-
+            console.log(user);
             return res.json(user);
         } catch (e) {
             next(e);
@@ -121,6 +121,18 @@ class UserController {
             const taskToDelete = await userService.deleteTask(task, refreshToken);
 
             return res.json(taskToDelete);
+        } catch (e) {
+            next(e);
+        }
+    }
+
+    async completeTask(req, res, next) {
+        try {
+            const { refreshToken } = req.cookies;
+            const { task } = req.body;
+            const taskToComplete = await userService.completeTask(task, refreshToken);
+
+            return res.json(taskToComplete);
         } catch (e) {
             next(e);
         }

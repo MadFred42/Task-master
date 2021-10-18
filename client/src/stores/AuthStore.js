@@ -10,43 +10,43 @@ export default class AuthStore {
         this._user = {};
         this._isLoading = false;
         this._isSignupForm = false;
+
         makeAutoObservable(this);
     }
 
-    setAuth = (bool) => {
+    setAuth = (bool) => { // setting is authorized user or not
         this._isAuth = bool;
     }
 
-    setUser = (user) => {
+    setUser = (user) => { // setting user
         this._user = user;
     }
 
-    setLoading = (bool) => {
+    setLoading = (bool) => { // setting if the content has not yet been uploaded or has already been uploaded
         this._isLoading = bool;
     }
 
-    setSignupForm = (bool) => {
+    setSignupForm = (bool) => { // when clicked on sign up button settin this to true to show sign up form
         this._isSignupForm = bool;
     }
 
-    get isAuth() {
+    get isAuth() { // getting data is the user authorized or not
         return this._isAuth;
     }
 
-    get user() {
+    get user() { // gettin user information
         return toJS(this._user);
     }
 
-    get isLoading() {
+    get isLoading() { // getting is loading or not
         return this._isLoading;
     }
 
-    get isSignupForm() {
+    get isSignupForm() { // getting sign up form
         return this._isSignupForm;
     }
     
-    async login(email, password) {
-        console.log(email);
+    async login(email, password) { // post to server to authorize user
         try {
             const response = await AuthService.login(email, password);
             console.log(response);
@@ -58,7 +58,7 @@ export default class AuthStore {
         }
     }
 
-    async registration(email, password, username) {
+    async registration(email, password, username) { // post to server to registrate user
         try {
             const response = await AuthService.registration(email, password, username);
             console.log(response);
@@ -71,7 +71,7 @@ export default class AuthStore {
         }
     }
 
-    async logout() {
+    async logout() { // post to server to logout
         try {
             const response = await AuthService.logout();
             console.log(response);
@@ -83,7 +83,7 @@ export default class AuthStore {
         }
     }
 
-    async checkAuth() {
+    async checkAuth() { // checking is authorized user after activation token has been died
         this.setLoading(true);
         try {
             const response = await axios.get(`${API_URL}/refresh`, {withCredentials: true});

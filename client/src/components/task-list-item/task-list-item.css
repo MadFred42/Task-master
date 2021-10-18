@@ -22,11 +22,13 @@
 }
 
 .list__group-buttons .btn-star {
+    background-color: white;
     border: 0;
     color: #69602c;
 }
 
 .list__group-buttons .btn-trash {
+    background-color: white;
     border: 0;
     color: rgb(224, 49, 64);
 }
@@ -36,6 +38,7 @@
 }
 
 .btn-check-square {
+    background-color: white;
     border: 0;
 }
 
@@ -45,20 +48,37 @@
     margin: 0 5px;
 }
 
-.task__list-item.complete.task-list-item-label {
-    text-decoration: line-through;
+.task__list-item.complete {
+    background-color: lightgreen;
+    text-decoration-line: line-through;
 }
 
-.task__list-item.complete.fa-check-square {
-    opacity: .4;
-    transform: translateX(0px);
+.task__list-item.complete .btn-check-square {
+    background-color: lightgreen;
+    color: green;
+}
+
+.task__list-item.complete .btn-trash {
+    background-color: lightgreen;
+}
+
+.task__list-item.complete .btn-star {
+    background-color: lightgreen;
 }
 
 .task__list-item.important {
-    color: black;
-    background-color: #FFD700;
+    background-color: #f1e288;
+}
+
+.task__list-item.important .btn-check-square {
+    background-color: #f1e288;
+}
+
+.task__list-item.important .btn-trash {
+    background-color: #f1e288;
 }
 
 .task__list-item.important .btn-star {
-    color: #FFD700;
+    background-color: #f1e288;
+    color: yellow;
 }

@@ -18,8 +18,16 @@ class TaskService {
 
     async deleteTask(task) {
         const theTask = await taskModel.findOne({ task });
-        console.log(theTask);
         await taskModel.deleteOne({ task });
+
+        return theTask;
+    }
+
+    async completeTask(task) {
+        const theTask = await taskModel.findOne({ task });
+        theTask.important = false;
+        theTask.completed = true;
+        theTask.save();
 
         return theTask;
     }
