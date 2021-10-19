@@ -7,13 +7,36 @@ export default class TaskStore {
     constructor() {
         this._tasks = [] // Array with tasks 
         this._isLoading = false // loading while updating
+        this._editTaskLabel = false; // div for changing tasks' label
 
         makeAutoObservable(this);
     }
 
+    setEditTaskLabel(task) {
+        console.log(task);
+        const edditedTask = this.tasks.filter(item => {
+            if (item.task === task) {
+                if (item.eddit) {
+                    return delete item['eddit'];
+                }
+                return item['eddit'] = true;
+            }
+
+            return item;
+        });
+        this.updateTasks();
+        edditedTask.map(task => this.setTasks(task));
+        console.log(this.tasks);
+    }
+
     setTasks(task) { // push new tasks above completed tasks, becouse completed should be at the bottom
-        const completed = this.tasks.filter(task => task.completed).length;
-        this._tasks.splice(this.tasks.length - completed, 0, task);
+        const completed = this.tasks.filter(task => task.completed);
+        this._tasks.splice(this.tasks.length - completed.length, 0, task);
+    }
+
+    updateChecedTasks(task) {
+        console.log(this.tasks.findIndex(item => item.task === task.task));
+        return this._tasks.splice(this.tasks.findIndex(item => item.task === task.task), 1, task);
     }
 
     setLoading(bool) { // setting loading div if the content has not yet been uploaded or has already been uploaded
@@ -22,6 +45,22 @@ export default class TaskStore {
 
     updateTasks() { // deleting all tasks to upload new formation
         this._tasks.splice(0);
+    }    
+
+    checkTask(task) {
+        const checkedTask = this.tasks.find(item => item.task === task);
+        
+        if (!checkedTask.checked) {
+            checkedTask.checked = true;
+            this.updateChecedTasks(checkedTask);
+        } else {
+            delete checkedTask.checked;
+            this.updateChecedTasks(checkedTask);
+        }
+    }
+
+    get editTaskLabel() {
+        return this._editTaskLabel;
     }
 
     get isLoading() { // getting if loading or not 

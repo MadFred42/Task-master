@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React, { useContext } from 'react';
 import { Context } from '../..';
+import { EdditForm } from '../eddit-form/eddit-form';
 
 import './task-list-item.css';
 
@@ -12,9 +13,9 @@ const TaskListItem = observer(() => {
     }
     
     const content = taskStore.tasks.map(item => {
-        const { _id, completed, important, task } = item;
+        const { _id, completed, important, task, checked, eddit } = item;
         let classNames;
-        let classImportant  = 'btn-star btn-sm'
+        let classCheck = 'fas fa-check-circle check__btn';
         
         if (important) {
             classNames = 'task__list-item important';
@@ -26,41 +27,55 @@ const TaskListItem = observer(() => {
             classNames = 'task__list-item complete';
         }
 
+        if (checked) {
+            classCheck = 'fas fa-check-circle checked';
+        }
+
         return (
-            <li className={classNames} key={_id}>
-                <span 
-                className="task__list-item-label">
-                    {task}</span>
-                <div className="list__group-buttons">
-                    <button
-                    className={classImportant}
+            <div className='task__list-wrap' key={_id}>
+                <i 
+                    className={classCheck}
                     id={task}
-                    onClick={(e) => taskStore.toggleImportantTask(e.target.id)}>
-                        <i 
-                        className="fas fa-star"
-                        id={task} />
-                    </button>
-                    <button 
+                    onClick={(e) => taskStore.checkTask(e.target.id)} />
+                <li className={classNames}>
+                    <span 
+                        className="task__list-item-label">
+                            {task}
+                    </span>
+                    {eddit && <EdditForm task={task} />}
+                    <div className="list__group-buttons">
+                        <button
+                            className="btn-star btn-sm"
+                            id={task}
+                            onClick={(e) => taskStore.toggleImportantTask(e.target.id)}>
+                            <i 
+                                className="fas fa-star"
+                                id={task} />
+                        </button>
+                        <button 
+                            id={task}
+                            className="btn-trash btn-sm"
+                            onClick={(e) => taskStore.deleteTask(e.target.id)}>
+                            <i 
+                                className="fas fa-trash"
+                                id={task} />
+                        </button>
+                        <button className="btn-check-square"
+                            id={task}
+                            onClick={(e) => taskStore.completeTask(e.target.id)}>
+                            <i 
+                                className="fas fa-check-square"
+                                id={task} />
+                        </button>
+                    </div>
+                </li>
+                <i 
                     id={task}
-                    className="btn-trash btn-sm"
-                    onClick={(e) => taskStore.deleteTask(e.target.id)}>
-                        <i 
-                            className="fas fa-trash"
-                            id={task} />
-                    </button>
-                    <button className="btn-check-square"
-                    id={task}
-                    onClick={(e) => taskStore.completeTask(e.target.id)}>
-                        <i 
-                            className="fas fa-check-square"
-                            id={task} />
-                    </button>
-                </div>
-            </li>
+                    className="fas fa-pen pen__btn"
+                    onClick={(e) => taskStore.setEditTaskLabel(e.target.id)}></i>
+            </div>
         )
-    })
-    
-    
+    });
     
     return (
         content

@@ -1,0 +1,36 @@
+.changing__button {
+    border: .5px solid green;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 10px;
+    width: 50%;
+}
+
+.changing__button:hover {
+    background-color: rgb(120, 252, 120);
+}   
+
+.changing__button-close {
+    border: .5px solid red;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 50%;
+}
+
+.changing__button-close:hover {
+    background-color: #ff8888;
+    color: white;
+}
+
+.changing__form {
+    display: flex;
+    font: .75em sans-serif;
+    height: 130%;
+    position: relative;
+    left: 10%;
+    bottom: 20%;
+}
+
+.hidden {
+    display: none;
+}

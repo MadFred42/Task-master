@@ -1,20 +1,35 @@
-.list__group-buttons {
-    box-sizing: border-box;
-    display: flex;
-    margin: 0 .5%;
-    justify-content: space-evenly;
-    position: relative;
-    width: 100px;
+.btn-check-square {
+    background-color: white;
+    border: 0;
 }
 
-.task__list-item {
-    border: 1px solid black;
-    border-radius: 5px;
+.checked {
+    align-self: center;
+    color: green;
+    cursor: pointer;
+    opacity: 1;
+    transition: opacity .5s;
+}
+
+.check__btn {
+    align-self: center;
+    cursor: pointer;
+    opacity: 0.2;
+    transition: opacity .5s;
+}
+
+.check__btn:hover {
+    align-self: center;
+    color: green;
+    cursor: pointer;
+    opacity: .5;
+}
+
+.list__group-buttons {
     display: flex;
-    font-size: 1.25rem;
-    justify-content: space-between;
-    margin: 5px;
-    width: 100%;
+    margin: 0 .5%;
+    position: sticky;
+    left: 100%;
 }
 
 .list__group-buttons button:hover {
@@ -24,7 +39,7 @@
 .list__group-buttons .btn-star {
     background-color: white;
     border: 0;
-    color: #69602c;
+    color: yellow;
 }
 
 .list__group-buttons .btn-trash {
@@ -37,9 +52,31 @@
     align-self: center; 
 }
 
-.btn-check-square {
-    background-color: white;
-    border: 0;
+.pen__btn {
+    align-self: center;
+    color: red;
+    cursor: pointer;
+    opacity: 0.3;
+    position: relative;
+    width: 5%;
+}
+
+.pen__btn:hover {
+    align-self: center;
+    color: red;
+    opacity: 1;
+    font-size: 1.05em;
+    transition: opacity .5s;
+}
+
+.task__list-item {
+    border: 1px solid black;
+    border-radius: 5px;
+    display: flex;
+    font-size: 1.25rem;
+    margin: 5px;
+    position: relative;
+    width: 90%;
 }
 
 .task__list-item-label {
@@ -63,7 +100,7 @@
 }
 
 .task__list-item.complete .btn-star {
-    background-color: lightgreen;
+    display: none;
 }
 
 .task__list-item.important {
@@ -80,5 +117,10 @@
 
 .task__list-item.important .btn-star {
     background-color: #f1e288;
-    color: yellow;
+    color: black;
+}
+
+.task__list-wrap {
+    display: flex;
+    justify-content: center;
 }
