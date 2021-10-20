@@ -1,9 +1,12 @@
 .changing__button {
+    align-self: center;
     border: .5px solid green;
     border-radius: 5px;
     cursor: pointer;
+    height: 20px;
     margin: 0 10px;
-    width: 50%;
+    line-height: 1em;
+    width: 20%;
 }
 
 .changing__button:hover {
@@ -11,10 +14,14 @@
 }   
 
 .changing__button-close {
+    align-self: center;
+    box-sizing: border-box;
     border: .5px solid red;
     border-radius: 5px;
     cursor: pointer;
-    width: 50%;
+    height: 20px;
+    line-height: 1em;
+    width: 20%;
 }
 
 .changing__button-close:hover {
@@ -22,15 +29,49 @@
     color: white;
 }
 
-.changing__form {
+.changin__buttons-block {
+    align-self: center;
     display: flex;
-    font: .75em sans-serif;
-    height: 130%;
-    position: relative;
-    left: 10%;
+    font-size: .75em;
+    width: 100%;
+}
+
+.changing__form {
+    border-radius: 10px;
     bottom: 20%;
+    display: flex;
+    height: 24px;
+    line-height: 1.55em;
+    margin: 0 5px;
+    width: 65%;
+}
+
+.changing__input {
+    align-self: center;
+    border: 1px solid black;
+    border-radius: 5px;
+    height: 22px;
+    width: 100%;
 }
 
 .hidden {
     display: none;
+}
+
+@media (max-width: 500px) {
+    .changing__button {
+        width: 40%;
+        font-size: .5em;
+        line-height: 1em;
+    }
+
+    .changing__button-close {
+        width: 40%;
+        font-size: .5em;
+        line-height: 1em;
+    }
+
+    .changing__input {
+        font-size: .65em;
+    }
 }

@@ -1,6 +1,11 @@
 .btn-check-square {
     background-color: white;
     border: 0;
+    padding: 0 8px;
+}
+
+.btn-sm {
+    padding: 0 8px;
 }
 
 .checked {
@@ -25,11 +30,27 @@
     opacity: .5;
 }
 
+.edit__btn {
+    align-self: center;
+    color: red;
+    cursor: pointer;
+    opacity: 0.3;
+    width: 5%;
+}
+
+.edit__btn:hover {
+    align-self: center;
+    color: red;
+    opacity: 1;
+    font-size: 1.05em;
+    transition: opacity .5s;
+}
+
 .list__group-buttons {
     display: flex;
-    margin: 0 .5%;
-    position: sticky;
-    left: 100%;
+    position: absolute;
+    right: 1%;
+    height: 100%;
 }
 
 .list__group-buttons button:hover {
@@ -52,37 +73,18 @@
     align-self: center; 
 }
 
-.pen__btn {
-    align-self: center;
-    color: red;
-    cursor: pointer;
-    opacity: 0.3;
-    position: relative;
-    width: 5%;
-}
-
-.pen__btn:hover {
-    align-self: center;
-    color: red;
-    opacity: 1;
-    font-size: 1.05em;
-    transition: opacity .5s;
-}
-
 .task__list-item {
     border: 1px solid black;
     border-radius: 5px;
     display: flex;
-    font-size: 1.25rem;
     margin: 5px;
     position: relative;
     width: 90%;
 }
 
 .task__list-item-label {
-    display: relative;
-    left: 2%;
-    margin: 0 5px;
+    display: inline;
+    left: 1%;
 }
 
 .task__list-item.complete {
@@ -122,5 +124,12 @@
 
 .task__list-wrap {
     display: flex;
+    height: 100%;
     justify-content: center;
+}
+
+@media (max-width: 500px) {
+    .task__list-item-label {
+        width: 60%;
+    }
 }

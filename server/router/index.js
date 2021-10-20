@@ -15,6 +15,7 @@ router.post('/savetask', userController.saveTask);
 router.post('/deleteTask', userController.deleteTask);
 router.post('/important', userController.toggleImportantTask);
 router.post('/completeTask', userController.completeTask);
+router.post('/changeTask', userController.changeTask);
 router.get('/activation/:link', userController.activation);
 router.get('/refresh', userController.refresh);
 router.get('/users', authMiddleware, userController.getUsers);

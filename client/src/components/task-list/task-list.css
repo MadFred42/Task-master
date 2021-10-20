@@ -1,6 +1,7 @@
 .task__list {
     display: block;
-    margin: 15px auto;  
-    width: 90%;
+    height: 100%;
+    margin: 15px auto;
     padding-inline-start: 0;
+    width: 90%;
 }

@@ -13,7 +13,7 @@ const TaskListItem = observer(() => {
     }
     
     const content = taskStore.tasks.map(item => {
-        const { _id, completed, important, task, checked, eddit } = item;
+        const { _id, completed, important, task, checked, edit } = item;
         let classNames;
         let classCheck = 'fas fa-check-circle check__btn';
         
@@ -38,14 +38,17 @@ const TaskListItem = observer(() => {
                     id={task}
                     onClick={(e) => taskStore.checkTask(e.target.id)} />
                 <li className={classNames}>
-                    <span 
+                    {
+                        edit ? 
+                        <EdditForm task={task} /> :
+                        <span 
                         className="task__list-item-label">
                             {task}
-                    </span>
-                    {eddit && <EdditForm task={task} />}
+                        </span>
+                    }
                     <div className="list__group-buttons">
                         <button
-                            className="btn-star btn-sm"
+                            className="btn-star"
                             id={task}
                             onClick={(e) => taskStore.toggleImportantTask(e.target.id)}>
                             <i 
@@ -71,8 +74,8 @@ const TaskListItem = observer(() => {
                 </li>
                 <i 
                     id={task}
-                    className="fas fa-pen pen__btn"
-                    onClick={(e) => taskStore.setEditTaskLabel(e.target.id)}></i>
+                    className="fas fa-edit edit__btn"
+                    onClick={(e) => taskStore.toEditTaskLabel(e.target.id)}></i>
             </div>
         )
     });

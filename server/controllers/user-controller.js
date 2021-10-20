@@ -137,6 +137,18 @@ class UserController {
             next(e);
         }
     }
+
+    async changeTask(req, res, next) {
+        try {
+            const { refreshToken } = req.cookies;
+            const { newTask, task } = req.body;
+            const taskToChange = await userService.changeTask(newTask, task, refreshToken);
+
+            return res.json(taskToChange);
+        } catch (e) {
+            next(e);
+        }
+    }
 }
 
 module.exports = new UserController();

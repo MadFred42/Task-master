@@ -154,6 +154,17 @@ class UserService {
         return userDto;
     }
 
+    async changeTask(newTask, task, refreshToken) {
+        const changeTask = await taskService.changeTask(newTask, task);
+        const userData = tokenService.validateRefreshToken(refreshToken);
+        const user = await userModel.findById(userData.id);
+        user.tasks.splice(user.tasks.findIndex(item => item.task === task), 1);
+        user.tasks.splice(user.tasks.length, 0, changeTask);
+        user.save();
+        
+        return changeTask;
+    }
+
 }
 
 module.exports = new UserService();

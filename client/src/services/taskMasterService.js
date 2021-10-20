@@ -18,4 +18,8 @@ export default class TaskMasterService {
     static async completeTask(task) {
         return $api.post('/completeTask', { task });
     }
+
+    static async changeTask(newTask, task) {
+        return $api.post('/changeTask', { newTask, task });
+    }
 }

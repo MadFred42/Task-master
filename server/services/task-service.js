@@ -31,6 +31,14 @@ class TaskService {
 
         return theTask;
     }
+
+    async changeTask(newTask, task) {
+        const theTask = await taskModel.findOne({ task });
+        theTask.task = newTask;
+        theTask.save();
+
+        return theTask;
+    }
 }
 
 module.exports = new TaskService();

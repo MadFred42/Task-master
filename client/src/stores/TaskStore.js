@@ -12,31 +12,18 @@ export default class TaskStore {
         makeAutoObservable(this);
     }
 
-    setEditTaskLabel(task) {
-        console.log(task);
-        const edditedTask = this.tasks.filter(item => {
-            if (item.task === task) {
-                if (item.eddit) {
-                    return delete item['eddit'];
-                }
-                return item['eddit'] = true;
-            }
-
-            return item;
-        });
-        this.updateTasks();
-        edditedTask.map(task => this.setTasks(task));
-        console.log(this.tasks);
-    }
-
     setTasks(task) { // push new tasks above completed tasks, becouse completed should be at the bottom
         const completed = this.tasks.filter(task => task.completed);
         this._tasks.splice(this.tasks.length - completed.length, 0, task);
     }
 
-    updateChecedTasks(task) {
-        console.log(this.tasks.findIndex(item => item.task === task.task));
+    updateOneTask(task) {
         return this._tasks.splice(this.tasks.findIndex(item => item.task === task.task), 1, task);
+    }
+
+    updateChangedTask(task) {
+        console.log(this.tasks.filter(item => item._id === task._id));
+        return this._tasks.splice(this.tasks.findIndex(item => item._id === task._id), 1, task);
     }
 
     setLoading(bool) { // setting loading div if the content has not yet been uploaded or has already been uploaded
@@ -52,10 +39,22 @@ export default class TaskStore {
         
         if (!checkedTask.checked) {
             checkedTask.checked = true;
-            this.updateChecedTasks(checkedTask);
+            this.updateOneTask(checkedTask);
         } else {
             delete checkedTask.checked;
-            this.updateChecedTasks(checkedTask);
+            this.updateOneTask(checkedTask);
+        }
+    }
+
+    toEditTaskLabel(task) {
+        const editedTask = this.tasks.find(item => item.task === task);
+
+        if (!editedTask.edit) {
+            editedTask.edit = true;
+            this.updateOneTask(editedTask);
+        } else {
+            delete editedTask.edit;
+            this.updateOneTask(editedTask);
         }
     }
 
@@ -124,6 +123,16 @@ export default class TaskStore {
             console.log(response);
             this.updateTasks();
             response.data.tasks.map(task => this.setTasks(task));
+        } catch (e) {
+            console.log(e.response?.data?.message);
+        }
+    }
+    
+    async changeTask(newTask, task) {
+        try {
+            const response = await TaskMasterService.changeTask(newTask, task);
+            console.log(response.data);
+            this.updateChangedTask(response.data);
         } catch (e) {
             console.log(e.response?.data?.message);
         }
