@@ -1,7 +1,18 @@
 .btn-check-square {
     background-color: white;
     border: 0;
-    padding: 0 8px;
+}
+
+.btn-star {
+    background-color: white;
+    border: 0;
+    color: black;
+}
+
+.btn-trash {
+    background: white;
+    border: 0;
+    color: rgb(224, 49, 64);
 }
 
 .btn-sm {
@@ -35,7 +46,13 @@
     color: red;
     cursor: pointer;
     opacity: 0.3;
+    transition: opacity .5s;
     width: 5%;
+}
+
+.edit__btn.active {
+    font-size: 1.05em;
+    opacity: 1;
 }
 
 .edit__btn:hover {
@@ -48,25 +65,15 @@
 
 .list__group-buttons {
     display: flex;
+    justify-content: center;
+    overflow: hidden;
     position: absolute;
-    right: 1%;
+    right: 4%;
     height: 100%;
 }
 
 .list__group-buttons button:hover {
     cursor: pointer;
-}
-
-.list__group-buttons .btn-star {
-    background-color: white;
-    border: 0;
-    color: yellow;
-}
-
-.list__group-buttons .btn-trash {
-    background-color: white;
-    border: 0;
-    color: rgb(224, 49, 64);
 }
 
 .list__group-buttons .fa-check-square {
@@ -102,24 +109,24 @@
 }
 
 .task__list-item.complete .btn-star {
-    display: none;
+    opacity: 0;
 }
 
 .task__list-item.important {
-    background-color: #f1e288;
+    background-color: #d6b600;
 }
 
 .task__list-item.important .btn-check-square {
-    background-color: #f1e288;
+    background-color: #d6b600;
 }
 
 .task__list-item.important .btn-trash {
-    background-color: #f1e288;
+    background-color: #d6b600;
 }
 
 .task__list-item.important .btn-star {
-    background-color: #f1e288;
-    color: black;
+    background-color: #d6b600;
+    color: yellow;
 }
 
 .task__list-wrap {
@@ -129,7 +136,28 @@
 }
 
 @media (max-width: 500px) {
+
+    .btn-sm {
+        padding: 0 3px;
+    }
+
     .task__list-item-label {
         width: 60%;
+    }
+    
+    .btn-star {
+        width: 33%;
+    }
+    
+    .btn-trash {
+        width: 33%;
+    } 
+
+    .btn-check-square {
+        width: 33%;
+    }
+
+    .fas {
+        font-size: .75em;
     }
 }

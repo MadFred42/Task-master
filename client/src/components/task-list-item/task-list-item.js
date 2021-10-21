@@ -15,8 +15,9 @@ const TaskListItem = observer(() => {
     const content = taskStore.tasks.map(item => {
         const { _id, completed, important, task, checked, edit } = item;
         let classNames;
-        let classCheck = 'fas fa-check-circle check__btn';
-        
+        let classCheck = 'fas fa-check check__btn';
+        let changeClass = 'fas fa-edit edit__btn';
+
         if (important) {
             classNames = 'task__list-item important';
         } else {
@@ -28,7 +29,11 @@ const TaskListItem = observer(() => {
         }
 
         if (checked) {
-            classCheck = 'fas fa-check-circle checked';
+            classCheck = 'fas fa-check checked';
+        }
+
+        if (edit && !completed) {
+            changeClass += ' active'
         }
 
         return (
@@ -39,7 +44,7 @@ const TaskListItem = observer(() => {
                     onClick={(e) => taskStore.checkTask(e.target.id)} />
                 <li className={classNames}>
                     {
-                        edit ? 
+                        edit && !completed ? 
                         <EdditForm task={task} /> :
                         <span 
                         className="task__list-item-label">
@@ -48,7 +53,7 @@ const TaskListItem = observer(() => {
                     }
                     <div className="list__group-buttons">
                         <button
-                            className="btn-star"
+                            className="btn-star btn-sm"
                             id={task}
                             onClick={(e) => taskStore.toggleImportantTask(e.target.id)}>
                             <i 
@@ -63,7 +68,7 @@ const TaskListItem = observer(() => {
                                 className="fas fa-trash"
                                 id={task} />
                         </button>
-                        <button className="btn-check-square"
+                        <button className="btn-check-square btn-sm"
                             id={task}
                             onClick={(e) => taskStore.completeTask(e.target.id)}>
                             <i 
@@ -74,7 +79,7 @@ const TaskListItem = observer(() => {
                 </li>
                 <i 
                     id={task}
-                    className="fas fa-edit edit__btn"
+                    className={changeClass}
                     onClick={(e) => taskStore.toEditTaskLabel(e.target.id)}></i>
             </div>
         )

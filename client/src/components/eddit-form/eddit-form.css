@@ -58,20 +58,53 @@
     display: none;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 540px) {
     .changing__button {
         width: 40%;
-        font-size: .5em;
+        font-size: 1em;
         line-height: 1em;
     }
 
     .changing__button-close {
         width: 40%;
-        font-size: .5em;
+        font-size: 1em;
+        line-height: 1em;
+    }
+}
+
+@media (max-width: 500px) {
+    .changing__button {
+        width: 40%;
+        font-size: .75em;
+        line-height: 1em;
+    }
+
+    .changing__button-close {
+        width: 40%;
+        font-size: .75em;
         line-height: 1em;
     }
 
     .changing__input {
         font-size: .65em;
+    }
+}
+
+@media (max-width: 320px) {
+    .changing__button {
+        width: 35%;
+        font-size: .5em;
+        line-height: 1em;
+    }
+
+    .changing__button-close {
+        width: 35%;
+        font-size: .5em;
+        line-height: 1em;
+    }
+
+    .changing__input {
+        font-size: .5em;
+        width: 70px;
     }
 }

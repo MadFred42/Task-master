@@ -102,3 +102,11 @@
         width: 70px;
     }
 }
+
+@media (max-width: 320px) {
+    .header__username {
+        margin: auto 10px;
+        font-size: .75em;
+        left: 0;
+    }
+}

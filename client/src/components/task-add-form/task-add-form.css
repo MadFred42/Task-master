@@ -26,5 +26,15 @@
 @media (max-width: 500px) {
     .add__button {
         font-size: .75em;
+        margin: 0 5%;
+        width: 15%;
+    }
+
+    .add__form {
+        justify-content: center;
+    }
+  
+    .add__input {
+        font-size: 0.75em;
     }
 }

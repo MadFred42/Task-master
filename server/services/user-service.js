@@ -135,6 +135,7 @@ class UserService {
         const deletedTask = await taskService.deleteTask(task);
         const userData = tokenService.validateRefreshToken(refreshToken);
         const user = await userModel.findById(userData.id);
+        console.log(user);
         user.tasks.splice(user.tasks.findIndex(item => item.task === deletedTask.task), 1);
         user.save();
         const userDto = new UserDto(user);
@@ -146,8 +147,8 @@ class UserService {
         const completedTask = await taskService.completeTask(task);
         const userData = tokenService.validateRefreshToken(refreshToken);
         const user = await userModel.findById(userData.id);
-        user.tasks.splice(user.tasks.findIndex(item => item.task === completedTask.task), 1);
-        user.tasks.splice(user.tasks.length, 0, completedTask);
+        user.tasks.splice(user.tasks.findIndex(item => item.task === completedTask.task), 1, completedTask);
+        // user.tasks.splice(user.tasks.length, 0, completedTask);
         user.save();
         const userDto = new UserDto(user);
         
@@ -158,8 +159,7 @@ class UserService {
         const changeTask = await taskService.changeTask(newTask, task);
         const userData = tokenService.validateRefreshToken(refreshToken);
         const user = await userModel.findById(userData.id);
-        user.tasks.splice(user.tasks.findIndex(item => item.task === task), 1);
-        user.tasks.splice(user.tasks.length, 0, changeTask);
+        user.tasks.splice(user.tasks.findIndex(item => item.task === task), 1, changeTask);
         user.save();
         
         return changeTask;

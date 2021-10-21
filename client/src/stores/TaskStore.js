@@ -12,18 +12,25 @@ export default class TaskStore {
         makeAutoObservable(this);
     }
 
+    // setDeletedCheckedTasks(task) {
+    //     this._tasks.splice(this.tasks.findIndex(item => item.task === task.task), 1);
+    // }
+
     setTasks(task) { // push new tasks above completed tasks, becouse completed should be at the bottom
         const completed = this.tasks.filter(task => task.completed);
         this._tasks.splice(this.tasks.length - completed.length, 0, task);
     }
+    
+    setTasksWithPush(task) {
+        this._tasks.push(task);
+    }
 
     updateOneTask(task) {
-        return this._tasks.splice(this.tasks.findIndex(item => item.task === task.task), 1, task);
+        this._tasks.splice(this.tasks.findIndex(item => item.task === task.task), 1, task);
     }
 
     updateChangedTask(task) {
-        console.log(this.tasks.filter(item => item._id === task._id));
-        return this._tasks.splice(this.tasks.findIndex(item => item._id === task._id), 1, task);
+        this._tasks.splice(this.tasks.findIndex(item => item._id === task._id), 1, task);
     }
 
     setLoading(bool) { // setting loading div if the content has not yet been uploaded or has already been uploaded
@@ -32,6 +39,18 @@ export default class TaskStore {
 
     updateTasks() { // deleting all tasks to upload new formation
         this._tasks.splice(0);
+    }
+
+    get editTaskLabel() {
+        return this._editTaskLabel;
+    }
+
+    get isLoading() { // getting if loading or not 
+        return this._isLoading;
+    }
+
+    get tasks() { //getting tasks
+        return toJS(this._tasks);
     }    
 
     checkTask(task) {
@@ -58,16 +77,13 @@ export default class TaskStore {
         }
     }
 
-    get editTaskLabel() {
-        return this._editTaskLabel;
-    }
-
-    get isLoading() { // getting if loading or not 
-        return this._isLoading;
-    }
-
-    get tasks() { //getting tasks
-        return toJS(this._tasks);
+    checkAll() {
+        const checkedTasks = this.tasks.map(item => {
+            item.checked = !item.checked;
+            return item;
+        });
+        this.updateTasks();
+        checkedTasks.map(task => this.setTasksWithPush(task));
     }
 
     async saveTask(task) { // saving tasks to the server, and getting them to render
@@ -136,5 +152,11 @@ export default class TaskStore {
         } catch (e) {
             console.log(e.response?.data?.message);
         }
+    }
+
+    async deleteCheckedTasks() {
+        const deleteTasks = this.tasks.filter(item => item.checked);
+        const response = await deleteTasks.map(item => TaskMasterService.deleteTask(item.task));
+        console.log(response);
     }
 }
