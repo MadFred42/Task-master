@@ -12,34 +12,48 @@ const TaskList = observer(() => {
     const { taskStore, store } = useContext(Context);
     let checkAllClassName = 'fas fa-check-double check__double-button';
     let deleteCheckedTasksClassName = 'hide';
+
     if (taskStore.tasks.filter(item => item.checked).length === taskStore.tasks.length) {
         checkAllClassName = 'fas fa-check-double checked';
-        deleteCheckedTasksClassName = 'fas fa-trash trash-button'
+        deleteCheckedTasksClassName = 'fas fa-trash trash-button';
     }
 
-        return (
-            <>
-                <div className="all__tasks__buttons">
+    if (taskStore.tasks.filter(item => item.checked).length > 0) {
+        deleteCheckedTasksClassName = 'fas fa-trash trash-button'
+    }
+    
+    return (
+        <>  
+            {taskStore.tasks.length > 0 && 
+            <div className="all__tasks__buttons">
+                {  taskStore.tasks.filter(item => item.checked).length !== 0 && taskStore.tasks.filter(item => item.checked).length !== taskStore.tasks.length 
+                    ?
+                    <i 
+                        className="far fa-minus-square"
+                        onClick={() => taskStore.unsetChecks()} />
+                    :
                     <input 
                         title="Choose all tasks"
                         type="checkbox" 
                         className={checkAllClassName} 
                         onClick={(e) => taskStore.checkAll(e.target.checked)} />
-                    <i 
-                        title="Delete selected tasks"
-                        className={deleteCheckedTasksClassName}
-                        onClick={() => taskStore.deleteCheckedTasks()} />
-                </div>
-                {
-                    !store.user.isActivated &&  // if user didn't activate his account he'll get this message
-                        <span>Please activate your account! The activation link was sent to your email.</span>
                 }
-                <ul className='task__list'>
-                    <TaskListItem />
-                </ul>
-                <TaskAddForm />
-            </>
-        )
+                <i 
+                    title="Delete selected tasks"
+                    className={deleteCheckedTasksClassName}
+                    onClick={() => taskStore.deleteCheckedTasks()} />
+                </div>
+            }
+            {
+            !store.user.isActivated &&  // if user didn't activate his account he'll get this message
+                <span>Please activate your account! The activation link was sent to your email.</span>
+            }
+            <ul className='task__list'>
+                <TaskListItem />
+            </ul>
+            <TaskAddForm />
+        </>
+    )
 });
 
 export default TaskList;

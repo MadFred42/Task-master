@@ -74,10 +74,33 @@ export default class TaskStore {
     }
 
     checkAll(checked) {
-        const toggleCheckedTasks = this.tasks.map(item => {
+        let toggleCheckedTasks;
+            
+        if (checked && this.tasks.filter(item => item.checked).length > 0) {
+            toggleCheckedTasks = this.tasks.map(item => {
+                item.checked = false;
+    
+                return item;
+            });
+            this.updateTasks();
+
+            return toggleCheckedTasks.map(task => this.setTasksWithPush(task));
+        } else if (!checked && this.tasks.filter(item => item.checked).length === 0) {
+            toggleCheckedTasks = this.tasks.map(item => {
+                item.checked = true;
+    
+                return item;
+            });
+            this.updateTasks();
+
+            return toggleCheckedTasks.map(task => this.setTasksWithPush(task));
+        }
+        
+        toggleCheckedTasks = this.tasks.map(item => {
+
             if (checked) {
                 item.checked = true;
-            } else {
+            } else if (!checked) {
                 item.checked = false;
             }
 
@@ -85,6 +108,16 @@ export default class TaskStore {
         });
         this.updateTasks();
         toggleCheckedTasks.map(task => this.setTasksWithPush(task));
+    }
+
+    unsetChecks() {
+        const unset = this.tasks.map(item => {
+            item.checked = false;
+
+            return item;
+        });
+        this.updateTasks();
+        return unset.map(task => this.setTasksWithPush(task));
     }
 
     async saveTask(task) { // saving tasks to the server, and getting them to render
@@ -157,11 +190,14 @@ export default class TaskStore {
 
     async deleteCheckedTasks() {
         const deleteTasks = this.tasks.filter(item => item.checked);
+        let response;
 
         for (let tasks in deleteTasks) {
-            await TaskMasterService.deleteTask(deleteTasks[tasks].task);
+            response = await TaskMasterService.deleteTask(deleteTasks[tasks].task);
         }
 
         this.updateTasks();
+        console.log(response.data);
+        response.data.tasks.map(task => this.setTasksWithPush(task));
     }
 }
