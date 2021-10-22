@@ -39,6 +39,7 @@ const TaskListItem = observer(() => {
         return (
             <div className='task__list-wrap' key={_id}>
                 <i 
+                    title="Select task"
                     className={classCheck}
                     id={task}
                     onClick={(e) => taskStore.checkTask(e.target.id)} />
@@ -53,6 +54,7 @@ const TaskListItem = observer(() => {
                     }
                     <div className="list__group-buttons">
                         <button
+                            title="Add to important"
                             className="btn-star btn-sm"
                             id={task}
                             onClick={(e) => taskStore.toggleImportantTask(e.target.id)}>
@@ -61,6 +63,7 @@ const TaskListItem = observer(() => {
                                 id={task} />
                         </button>
                         <button 
+                            title="Delete task"
                             id={task}
                             className="btn-trash btn-sm"
                             onClick={(e) => taskStore.deleteTask(e.target.id)}>
@@ -69,6 +72,7 @@ const TaskListItem = observer(() => {
                                 id={task} />
                         </button>
                         <button className="btn-check-square btn-sm"
+                            title="Add to complete"
                             id={task}
                             onClick={(e) => taskStore.completeTask(e.target.id)}>
                             <i 
@@ -78,6 +82,7 @@ const TaskListItem = observer(() => {
                     </div>
                 </li>
                 <i 
+                    title="Edit task"
                     id={task}
                     className={changeClass}
                     onClick={(e) => taskStore.toEditTaskLabel(e.target.id)}></i>

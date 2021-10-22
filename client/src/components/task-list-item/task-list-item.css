@@ -91,7 +91,7 @@
 
 .task__list-item-label {
     display: inline;
-    left: 1%;
+    margin: 0 1%;
 }
 
 .task__list-item.complete {

@@ -20,10 +20,13 @@ const TaskList = observer(() => {
         return (
             <>
                 <div className="all__tasks__buttons">
+                    <input 
+                        title="Choose all tasks"
+                        type="checkbox" 
+                        className={checkAllClassName} 
+                        onClick={(e) => taskStore.checkAll(e.target.checked)} />
                     <i 
-                        className={checkAllClassName}
-                        onClick={() => taskStore.checkAll()} />
-                    <i 
+                        title="Delete selected tasks"
                         className={deleteCheckedTasksClassName}
                         onClick={() => taskStore.deleteCheckedTasks()} />
                 </div>

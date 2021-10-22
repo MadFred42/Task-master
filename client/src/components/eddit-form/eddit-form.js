@@ -6,7 +6,7 @@ import './eddit-form.css';
 
 export const EdditForm = observer(({ task }) => {
     const { taskStore } = useContext(Context);
-    const [newLabel, setNewLabel] = useState('');
+    const [newLabel, setNewLabel] = useState(task);
     let changingForm = 'changing__form hidden';
     
     const changeTask = (e) => {

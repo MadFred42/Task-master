@@ -9,6 +9,7 @@ class TaskService {
     }
 
     async importantTask(task) {
+        console.log(task);
         const theTask = await taskModel.findOne({ task });
         theTask.important = !theTask.important;
         theTask.save();

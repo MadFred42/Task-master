@@ -12,10 +12,6 @@ export default class TaskStore {
         makeAutoObservable(this);
     }
 
-    // setDeletedCheckedTasks(task) {
-    //     this._tasks.splice(this.tasks.findIndex(item => item.task === task.task), 1);
-    // }
-
     setTasks(task) { // push new tasks above completed tasks, becouse completed should be at the bottom
         const completed = this.tasks.filter(task => task.completed);
         this._tasks.splice(this.tasks.length - completed.length, 0, task);
@@ -77,13 +73,18 @@ export default class TaskStore {
         }
     }
 
-    checkAll() {
-        const checkedTasks = this.tasks.map(item => {
-            item.checked = !item.checked;
+    checkAll(checked) {
+        const toggleCheckedTasks = this.tasks.map(item => {
+            if (checked) {
+                item.checked = true;
+            } else {
+                item.checked = false;
+            }
+
             return item;
         });
         this.updateTasks();
-        checkedTasks.map(task => this.setTasksWithPush(task));
+        toggleCheckedTasks.map(task => this.setTasksWithPush(task));
     }
 
     async saveTask(task) { // saving tasks to the server, and getting them to render
@@ -156,7 +157,11 @@ export default class TaskStore {
 
     async deleteCheckedTasks() {
         const deleteTasks = this.tasks.filter(item => item.checked);
-        const response = await deleteTasks.map(item => TaskMasterService.deleteTask(item.task));
-        console.log(response);
+
+        for (let tasks in deleteTasks) {
+            await TaskMasterService.deleteTask(deleteTasks[tasks].task);
+        }
+
+        this.updateTasks();
     }
 }
