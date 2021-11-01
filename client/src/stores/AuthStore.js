@@ -7,6 +7,7 @@ export default class AuthStore {
     
     constructor() {
         this._isAuth = false;
+        this._error = null;
         this._user = {};
         this._isLoading = false;
         this._isSignupForm = false;
@@ -16,6 +17,11 @@ export default class AuthStore {
 
     setAuth = (bool) => { // setting is authorized user or not
         this._isAuth = bool;
+    }
+
+    setError = (str) => {
+        console.log(str);
+        this._error = str;
     }
 
     setUser = (user) => { // setting user
@@ -32,6 +38,10 @@ export default class AuthStore {
 
     get isAuth() { // getting data is the user authorized or not
         return this._isAuth;
+    }
+
+    get error() {
+        return this._error;
     }
 
     get user() { // gettin user information
@@ -54,6 +64,7 @@ export default class AuthStore {
             this.setAuth(true);
             this.setUser(response.data.user);
         } catch (e) {
+            this.setError(e.response?.data?.message);
             console.log(e.response?.data?.message);
         }
     }
